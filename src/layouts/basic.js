@@ -24,7 +24,7 @@ const userMenu = [
   },
   {
     "code": "dashboard",
-    "name": "信息板",
+    "name": "密码管理1",
     "order": 0,
     "parentId": null,
     "id": null,
@@ -36,7 +36,7 @@ const userMenu = [
   },
   {
     "code": "credit",
-    "name": "审批中心",
+    "name": "密码管理2",
     "order": 0,
     "parentId": null,
     "id": null,
@@ -48,7 +48,7 @@ const userMenu = [
   },
   {
     "code": "credit_supply_chain",
-    "name": "审批中心(供应链)",
+    "name": "密码管理3",
     "order": 0,
     "parentId": null,
     "id": null,
@@ -60,7 +60,7 @@ const userMenu = [
   },
   {
     "code": "archive",
-    "name": "档案管理",
+    "name": "密码管理4",
     "order": 0,
     "parentId": null,
     "id": null,
@@ -72,7 +72,7 @@ const userMenu = [
   },
   {
     "code": "post_loan",
-    "name": "贷后管理",
+    "name": "密码管理5",
     "order": 0,
     "parentId": null,
     "id": null,
@@ -84,7 +84,7 @@ const userMenu = [
   },
   {
     "code": "system_manage",
-    "name": "系统管理",
+    "name": "密码管理6",
     "order": 0,
     "parentId": null,
     "id": null,
