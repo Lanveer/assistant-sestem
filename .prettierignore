@@ -1,0 +1,4 @@
+package.json
+dist/
+build/
+node_modules/

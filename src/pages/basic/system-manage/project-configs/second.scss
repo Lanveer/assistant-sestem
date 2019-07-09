@@ -1,0 +1,15 @@
+
+.sys-wrapper {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  background: #fff;
+  padding: 10px;
+  .ant-tabs-tab{
+    //margin-right: 10px!important;
+    //text-align: center!important;
+  }
+  .next-step{
+    float: right;
+  }
+}

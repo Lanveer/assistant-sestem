@@ -1,0 +1,23 @@
+
+.sys-wrapper {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  background: #fff;
+  padding: 10px;
+  .sys-top{
+    height: auto;
+    overflow: hidden;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+  }
+  .sys-down{
+    .sys-down-wrap{
+      margin: 15px auto;
+    }
+  }
+  .next-step{
+    float: right;
+  }
+
+}

@@ -1,0 +1,12 @@
+.common-panel-wrapper {
+  width: 100%;
+  background-color: #fff;
+  padding: 8px;
+  &:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+    border-color: rgba(0, 0, 0, 0.09);
+  }
+  .ant-form-item {
+    margin-bottom: 0px;
+  }
+}

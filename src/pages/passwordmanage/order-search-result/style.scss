@@ -1,0 +1,46 @@
+.search-result-wrapper {
+  margin-top: 8px;
+  padding: 12px;
+  background-color: #fff;
+  border: 1px solid #e8e8e8;
+  &:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+    border-color: rgba(0, 0, 0, 0.09);
+  }
+
+  .ant-table-body {
+    overflow-x: auto !important;
+  }
+
+  .ant-table th {
+    white-space: nowrap;
+  }
+
+  .page-button-wrapper {
+    display: flex;
+    margin-top: 16px;
+    justify-content: flex-end;
+    .page-button-span {
+      line-height: 28px;
+      span {
+        color: #2acd8f;
+      }
+    }
+    .ant-input-number {
+      border-radius: 4px;
+      margin-left: 16px;
+      height: 28px;
+      width: 60px;
+    }
+    .ant-input-number-input {
+      height: 26px;
+    }
+    .ant-btn {
+      height: 28px;
+      margin-left: 8px;
+    }
+    .active {
+      border-color: #2acd8f;
+    }
+  }
+}

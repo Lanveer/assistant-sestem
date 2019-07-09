@@ -1,0 +1,84 @@
+@import '../../styles/variables.scss';
+
+$header-text: $green-blue;
+$header-height: 62px;
+
+.item-border-base {
+  border-bottom: 2px solid $header-text;
+  color: $green-blue;
+}
+
+.rc-header {
+  min-width: 1480px;
+  height: $header-height;
+  background-color: #ffffff;
+  box-shadow: 0 3px 10px 0 rgba(163, 175, 183, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 999;
+  position: relative;
+  padding: 0 40px;
+  .rc-header-logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 340px;
+    img {
+      width: 120px;
+      height: 60px;
+    }
+    h1 {
+      margin-bottom: 0px;
+      color: #8a8a8a;
+      font-size: 24px;
+    }
+    .login-seperator {
+      width: 1px;
+      height: 40px;
+      border-right: 1px solid #8a8a8a;
+      margin: 8px;
+    }
+  }
+  .rc-header-menu {
+    margin-left: 100px;
+    flex-direction: row;
+    justify-content: space-between;
+    flex: 1;
+    display: flex;
+    .rc-header-user {
+      .rc-dropdown-link {
+        font-size: 14px;
+        color: #3b404a;
+        margin-left: 18px;
+      }
+    }
+    .ant-menu-horizontal {
+      line-height: $header-height;
+      & > .ant-menu-item-selected {
+        @extend .item-border-base;
+        font-size: 20px !important;
+        font-weight: 600;
+        & > a {
+          color: $header-text;
+        }
+      }
+      & .ant-menu-item {
+        font-size: 18px;
+        &:hover {
+          @extend .item-border-base;
+        }
+      }
+      & > .ant-menu-item-active {
+        @extend .item-border-base;
+        a {
+          color: $header-text;
+        }
+      }
+    }
+  }
+}
+
+.ant-layout-header {
+  background: #fff !important;
+}

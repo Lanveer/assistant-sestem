@@ -1,0 +1,12 @@
+@import 'styles/variables.scss';
+.error-wrapper {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  h1 {
+    color: $green-blue;
+    text-align: center;
+  }
+}

@@ -1,0 +1,132 @@
+@import '../../../styles/variables.scss';
+
+.base-flex-box {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: 16px;
+}
+.order-search-header-wrapper {
+  display: flex;
+  background-color: #fff;
+  flex-direction: column;
+  padding: 16px 12px;
+  border: 1px solid #e8e8e8;
+  &:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+    border-color: rgba(0, 0, 0, 0.09);
+  }
+  .order-search-header-prams-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(400px, 1fr));
+    border-radius: 4px;
+    grid-row-gap: 4px;
+
+    .business-button-wrapper {
+      width: 408px;
+      @extend .base-flex-box;
+      justify-content: flex-start;
+      .search-button-label {
+        margin-right: 16px;
+      }
+      .ant-btn {
+        height: 28px;
+        border-radius: 4px;
+      }
+    }
+    .form-item-wrapper {
+      margin: auto 0px;
+    }
+
+    .apply-date-wrapper {
+      display: flex;
+
+      .apply-item-wrapper {
+        align-items: center;
+        display: flex;
+        width: 25%;
+        justify-content: flex-end;
+        margin-right: 8px;
+      }
+      .apply-datepick-wrapper {
+        align-items: center;
+        display: flex;
+        justify-content: flex-start;
+        width: 75%;
+
+        .ant-select {
+          margin-right: 8px;
+        }
+        .ant-calendar-picker-input {
+          width: 294px;
+        }
+        .span-must {
+          color: red;
+        }
+      }
+    }
+
+    .product-input-wrapper {
+      .ant-select-selection--multiple {
+        max-height: 80px;
+        overflow-y: auto;
+        margin-top: 4px;
+      }
+      .ant-select-selection--single {
+        min-width: 300px;
+      }
+    }
+
+    .lending-num-wrapper {
+      grid-column: 1/4;
+      border-bottom: 1px dashed #e8e8e8;
+      margin-left: 16px;
+      .ant-row {
+        width: 408px;
+      }
+      .ant-form-item-label {
+        width: 64px;
+      }
+    }
+
+    .ant-form-item {
+      margin-bottom: 0px;
+    }
+
+    .ant-select-selection--multiple,
+    .ant-input {
+      width: 300px;
+    }
+    .ant-radio-wrapper,
+    .ant-calendar-picker,
+    .ant-select-selection--single,
+    .ant-select-selection--multiple,
+    .ant-input {
+      &:hover {
+        border-color: $green-blue !important;
+      }
+    }
+
+    .ant-radio-wrapper:hover .ant-radio .ant-radio-inner,
+    .ant-radio:hover .ant-radio-inner,
+    .ant-radio-focused .ant-radio-inner {
+      border-color: $green-blue !important;
+    }
+
+    .ant-radio-checked .ant-radio-inner {
+      border-color: $green-blue !important;
+      &:after {
+        background-color: $green-blue;
+      }
+    }
+  }
+  .search-button-wrapper {
+    display: flex;
+    margin-top: 20px;
+    padding-left: 12px;
+    .ant-btn {
+      height: 28px;
+      border-radius: 4px;
+    }
+  }
+}
