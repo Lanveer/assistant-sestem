@@ -39,7 +39,7 @@ function getLayout(navData, path) {
 
 const initRouteConfig = [
   'user',
-  'search',
+  'passwordManage',
   'approvelCenter',
   'dashboard',
   'fileManage',

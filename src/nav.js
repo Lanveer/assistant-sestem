@@ -6,7 +6,7 @@ export default app => [
     layout: 'basic',
     children: [
       {
-        path: 'search',
+        path: 'passwordManage',
         component: dynamicWrapper(app, [], () =>
           import('pages/passwordmanage')
         )

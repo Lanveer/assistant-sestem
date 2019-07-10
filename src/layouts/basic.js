@@ -11,7 +11,7 @@ import _ from 'lodash';
 
 const userMenu = [
   {
-    "code": "reporting",
+    "code": "passwordManage",
     "name": "密码管理",
     "order": 0,
     "parentId": null,

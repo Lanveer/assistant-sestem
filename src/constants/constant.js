@@ -42,7 +42,7 @@ export const ROUTE_MENU_DIC = {
   dashboard: 'dashboard',
   credit: 'newApprovelCenter',
   credit_supply_chain: 'approvelCenter',
-  reporting: 'search',
+  passwordManage: 'passwordManage',
   archive: 'fileManage',
   error: 'error',
   post_loan: 'postLoan',

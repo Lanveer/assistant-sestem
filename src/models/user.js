@@ -11,7 +11,10 @@ export default {
   },
   effects:{
     *loginAct({payload }, {call, put}){
-      yield put(routerRedux.replace('/search'));
+      yield put(routerRedux.replace('/pwd'));
+    },
+    *logoutAct({payload }, {call, put}){
+      yield put(routerRedux.replace('/user/login'));
     },
   },
 
