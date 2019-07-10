@@ -3,7 +3,7 @@ import moment from 'moment';
 import { Table, Button, Icon, Modal, Form, Row, Col,Input,Pagination, message, Spin } from 'antd';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {getListData} from 'services/password-manage'
+import {getList, addList, editeList, deleteList} from 'services/password-manage'
 import {TIME_FOMATE} from 'constants/constant';
 import './style.scss';
 const formItemLayout = {
@@ -41,36 +41,33 @@ export default class OrderSearchResult extends Component {
 
   componentDidMount(){
     const {page, pagesize} = this.state;
-    this.getList(page, pagesize);
+    this.getListData(page, pagesize);
     this.props.onRef && this.props.onRef(this);
   }
   openModal=()=>{
     this.add({},'add')
   };
   // get list data
-  getList = (page, pagesize)=>{
+  getListData = (page=1, pagesize=10)=>{
     this.setState({
       isLoading:true
     });
     const pms = {
-      page:page ? page : 1,
-      pagesize:pagesize ? pagesize : 10,
+      page,
+      pagesize,
       credentials:'include'
     };
-
-    getListData(pms).then(r=>{
+    getList(pms).then(r=>{
       console.log('r data is:', r);
       if(r && r.result.status === 200) {
         this.setState({
           listData:r.result.data,
-          total:r.total,
+          total:r.result.total,
           isLoading:false
         })
       }
     });
   };
-
-
   //edit
   edit = (record, flag)=>{
     console.log('edit data is:', record);
@@ -84,7 +81,7 @@ export default class OrderSearchResult extends Component {
       user: record.user,
       pwd: record.pwd,
       tips: record.tips,
-      desciption: record.desciption,
+      description: record.description,
     });
 
   };
@@ -100,18 +97,26 @@ export default class OrderSearchResult extends Component {
       user: '',
       pwd: '',
       tips: '',
-      desciption: ''
+      description: ''
     });
   };
 
-
   // delete
   delete = (record)=>{
+    let that = this;
     confirm({
       title: `确定要删除名称为${record.name}的数据`,
       content: '删除后可以在数据库备份中找回',
       onOk() {
-        console.log('OK');
+        deleteList(record.id).then(r=>{
+          console.log('r data is:', r);
+          if(r && r.result.status === 200) {
+            message.success('删除成功');
+            that.getListData();
+          }else{
+            message.error('删除失败');
+          }
+        })
       },
       onCancel() {
         console.log('Cancel');
@@ -122,7 +127,6 @@ export default class OrderSearchResult extends Component {
 
   // ok
   handleOk = (flag)=>{
-    console.log('flag ok is:', flag);
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.submitData(flag,values)
@@ -142,33 +146,33 @@ export default class OrderSearchResult extends Component {
     })
   };
 
-
   // request
   submitData = (flag, params)=>{
     console.log('Received values of form: ', params);
-
     let url = 'http://localhost:3001/api/list?id='+this.state.editId+'';
     let mds = flag === 'edit' ? 'PUT' : 'POST';
     let msg = flag === 'edit' ? '修改成功' : '添加成功';
     let err = flag === 'edit' ? '修改失败' : '添加失败';
-    request(url,
-      {
-        method:`${mds}`,
-        credentials:'include',
-        body:JSON.stringify(params),
-      }
-    ).then((res)=>{
-      console.log('post data is:', res);
-      if(res && res.status === 200) {
-        message.success(msg);
-        this.getList();
-      }else{
-        message.error(err);
-      }
-    })
+    if(flag === 'edit'){
+      editeList(this.state.editId, params).then(res=>{
+        if(res && res.result.status === 200) {
+          message.success(msg);
+          this.getListData();
+        }else{
+          message.error(err);
+        }
+      })
+    }else{
+      addList(this.state.editId, params).then(res=>{
+        if(res && res.result.status === 200) {
+          message.success(msg);
+          this.getListData();
+        }else{
+          message.error(err);
+        }
+      })
+    }
   };
-
-
   listColumns = [
     {
       title: 'id',
@@ -187,7 +191,7 @@ export default class OrderSearchResult extends Component {
       dataIndex: 'tips',
     }, {
       title: '简述',
-      dataIndex: 'desciption',
+      dataIndex: 'description',
     }, {
       title: '操作',
       render:(record)=>{
@@ -206,16 +210,19 @@ export default class OrderSearchResult extends Component {
       page,
       pagesize
     }, ()=>{
-      this.getList(page, pagesize);
+      this.getListData(page, pagesize);
     });
   };
 
   onShowSizeChange = (current, pageSize) =>{
+    console.log('current is:', current);
+    console.log('pageSize is:', pageSize);
+
     this.setState({
       page:current,
       pagesize:pageSize
     }, ()=>{
-      this.getList(page, pagesize);
+      this.getListData(current, pageSize);
     })
   };
 
@@ -279,6 +286,14 @@ export default class OrderSearchResult extends Component {
                 </Form.Item>
               </Col>
               <Col span={18}>
+                <Form.Item label={'账号'} {...formItemLayout}>
+                  {getFieldDecorator('user', {
+                  })(
+                    <Input/>
+                  )}
+                </Form.Item>
+              </Col>
+              <Col span={18}>
                 <Form.Item label={'密码'} {...formItemLayout}>
                   {getFieldDecorator('pwd', {
                   })(
@@ -296,7 +311,7 @@ export default class OrderSearchResult extends Component {
               </Col>
               <Col span={18}>
                 <Form.Item label={'描述'} {...formItemLayout}>
-                  {getFieldDecorator('desciption', {
+                  {getFieldDecorator('description', {
                   })(
                     <Input/>
                   )}

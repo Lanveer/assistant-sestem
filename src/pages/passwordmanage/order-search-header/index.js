@@ -40,6 +40,7 @@ export default class OrderSearchHeader extends Component {
 
   handleSubmitForm = () => {
     let formCondition = this.getFormFilterParams();
+    console.log('form data is:', formCondition);
     };
 
 
@@ -69,7 +70,7 @@ export default class OrderSearchHeader extends Component {
       <div className="order-search-header-wrapper">
         <div className="order-search-header-prams-wrapper">
           <div className="form-item-wrapper">
-            <Form.Item label={'借款编号'} {...formItemLayout}>
+            <Form.Item label={'名称'} {...formItemLayout}>
               {getFieldDecorator('name')(
                 <Input placeholder="请输入" style={{ width: '100%' }} />
               )}
