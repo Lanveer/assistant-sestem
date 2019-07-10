@@ -12,14 +12,14 @@ export default app => [
         )
       },
       {
-        name: '信息板',
+        name: '信息',
         path: 'dashboard',
         component: dynamicWrapper(app, [], () =>
           import('pages/basic/dashboard')
         )
       },
       {
-        name: '审批中心',
+        name: '审批',
         path: '/newApprovelCenter',
         exact: true,
         component: dynamicWrapper(app, [], () =>
@@ -27,7 +27,7 @@ export default app => [
         )
       },
       {
-        name: '支用审核',
+        name: '审核',
         path: '/newApprovelCenter/approvedList',
         exact: true,
         component: dynamicWrapper(app, [], () =>
@@ -35,7 +35,7 @@ export default app => [
         )
       },
       {
-        name: '支用查询',
+        name: '查询',
         path: '/newApprovelCenter/supportQuery',
         exact: true,
         component: dynamicWrapper(app, [], () =>
@@ -43,7 +43,7 @@ export default app => [
         )
       },
       {
-        name: '授信审核',
+        name: '授得到',
         path: '/newApprovelCenter/sx-approvedList',
         exact: true,
         component: dynamicWrapper(app, [], () =>
@@ -51,7 +51,7 @@ export default app => [
         )
       },
       {
-        name: '授信查询',
+        name: '額額外',
         path: '/newApprovelCenter/creditInquiry',
         exact: true,
         component: dynamicWrapper(app, [], () =>
@@ -59,7 +59,7 @@ export default app => [
         )
       },
       {
-        name: '审批中心(供应链)',
+        name: '熱風而非',
         path: '/approvelCenter',
         exact: true,
         component: dynamicWrapper(app, [], () =>
@@ -67,7 +67,7 @@ export default app => [
         )
       },
       {
-        name: '档案管理',
+        name: '為惡',
         path: '/fileManage',
         exact: true,
         component: dynamicWrapper(app, [], () =>
@@ -75,7 +75,7 @@ export default app => [
         )
       },
       {
-        name: '消息提示',
+        name: '而無法',
         path: '/fileManage/tipManage',
         exact: true,
         component: dynamicWrapper(
@@ -91,7 +91,7 @@ export default app => [
         component: dynamicWrapper(app, [], () => import('pages/basic/403'))
       },
       {
-        name: '贷后管理',
+        name: '額外熱舞',
         path: '/postLoan',
         exact: true,
         component: dynamicWrapper(app, [], () =>
@@ -99,12 +99,12 @@ export default app => [
         )
       },
       {
-        name: '系统管理',
+        name: '為惡的',
         path: '/setting',
         exact: true,
         component: dynamicWrapper(app, [], () => import('pages/basic/setting'))
       }, {
-        name: '系统管理',
+        name: '為惡的',
         path: '/systemManage',
         exact: true,
         component: dynamicWrapper(app, [], () => import('pages/basic/system-manage'))
