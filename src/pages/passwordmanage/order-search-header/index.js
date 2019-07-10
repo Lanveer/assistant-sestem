@@ -28,7 +28,6 @@ export default class OrderSearchHeader extends Component {
     };
   }
 
-
   getFormFilterParams = () => {
     const { form } = this.props;
     let filterParams = {};
@@ -43,11 +42,15 @@ export default class OrderSearchHeader extends Component {
     let formCondition = this.getFormFilterParams();
     };
 
+
   handleResetForm = () => {
     const { form } = this.props;
     form.resetFields();
   };
 
+  handleAddItem=()=>{
+    this.props.handleAddItem()
+  };
   render() {
     const formItemLayout = {
       labelCol: {
@@ -85,6 +88,12 @@ export default class OrderSearchHeader extends Component {
             handleClick={this.handleResetForm}
             customStyle={{ width: '120px', marginRight: '16px' }}
             text={'重置'}
+          />
+          <PublicButton
+            type={'primary'}
+            handleClick={this.handleAddItem}
+            text={'新增'}
+            customStyle={{ width: '120px', marginRight: '16px' }}
           />
         </div>
       </div>

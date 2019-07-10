@@ -12,17 +12,23 @@ export default class OrderSearch extends Component {
     this.state = {
     };
   }
-  handleSubmitSearch(conditions) {
-  }
 
+
+  onRef=(ref)=>{
+    this.OrderSearchResult=ref;
+  };
   render() {
+    const {} = this.state;
     return (
       <div className="order-search-container">
+
         <OrderSearchHeader
           handleSubmitSearch={this.handleSubmitSearch}
+          handleAddItem={()=>{this.OrderSearchResult.openModal && this.OrderSearchResult.openModal()}}
         />
         <OrderSearchResult
           handleSubmitSearch={this.handleSubmitSearch}
+          onRef={this.onRef}
         />
       </div>
     );

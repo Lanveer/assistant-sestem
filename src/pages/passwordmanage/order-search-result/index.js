@@ -35,15 +35,18 @@ export default class OrderSearchResult extends Component {
       showEditModal:false,
       isLoading:true,
       page:1,
-      pagesize:10
+      pagesize:10,
     }
   }
 
   componentDidMount(){
     const {page, pagesize} = this.state;
     this.getList(page, pagesize);
+    this.props.onRef && this.props.onRef(this);
   }
-
+  openModal=()=>{
+    this.add({},'add')
+  };
   // get list data
   getList = (page, pagesize)=>{
     this.setState({
@@ -87,7 +90,7 @@ export default class OrderSearchResult extends Component {
   };
 
   add = (record, flag)=>{
-    console.log('flag is:', flag)
+    console.log('flag is:', flag);
     this.setState({
       showEditModal:!this.state.showEditModal,
       flag
@@ -235,7 +238,7 @@ export default class OrderSearchResult extends Component {
     return (
       <div>
         <div className="scl-logo-container">
-          <Button className="add" type="primary" onClick={()=>{this.add({},'add')}}><Icon type="add" />新增</Button>
+          {/*<Button className="add" type="primary" onClick={()=>{this.add({},'add')}}><Icon type="add" />新增</Button>*/}
           <Spin spinning={false}>
             <Table
               style={{clear:'both'}}

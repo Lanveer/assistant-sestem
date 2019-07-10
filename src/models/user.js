@@ -11,7 +11,7 @@ export default {
   },
   effects:{
     *loginAct({payload }, {call, put}){
-      yield put(routerRedux.replace('/pwd'));
+      yield put(routerRedux.replace('/passwordManage'));
     },
     *logoutAct({payload }, {call, put}){
       yield put(routerRedux.replace('/user/login'));
