@@ -70,7 +70,6 @@ export default class OrderSearchResult extends Component {
   };
   //edit
   edit = (record, flag)=>{
-    console.log('edit data is:', record);
     this.setState({
       showEditModal:!this.state.showEditModal,
       flag,
@@ -153,11 +152,17 @@ export default class OrderSearchResult extends Component {
     let mds = flag === 'edit' ? 'PUT' : 'POST';
     let msg = flag === 'edit' ? '修改成功' : '添加成功';
     let err = flag === 'edit' ? '修改失败' : '添加失败';
+      this.setState({
+          isLoading:true
+      });
     if(flag === 'edit'){
       editeList(this.state.editId, params).then(res=>{
         if(res && res.result.status === 200) {
           message.success(msg);
           this.getListData();
+            this.setState({
+                isLoading:false
+            });
         }else{
           message.error(err);
         }
@@ -167,6 +172,9 @@ export default class OrderSearchResult extends Component {
         if(res && res.result.status === 200) {
           message.success(msg);
           this.getListData();
+            this.setState({
+                isLoading:false
+            });
         }else{
           message.error(err);
         }
@@ -245,7 +253,7 @@ export default class OrderSearchResult extends Component {
     return (
       <div>
         <div className="scl-logo-container">
-          {/*<Button className="add" type="primary" onClick={()=>{this.add({},'add')}}><Icon type="add" />新增</Button>*/}
+          <Button className="add" type="primary" onClick={()=>{this.add({},'add')}}><Icon type="add" />新增</Button>
           <Spin spinning={false}>
             <Table
               style={{clear:'both'}}
