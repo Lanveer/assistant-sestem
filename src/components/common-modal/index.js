@@ -18,8 +18,7 @@ class CommonModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        isLoading:false,
-        flag:'add'
+        isLoading:false
     };
   }
 
@@ -27,7 +26,6 @@ class CommonModal extends Component {
     handleOk = (flag)=>{
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                // this.submitData(flag,values)
                 this.props.operateModal(values,flag)
             }
         });
@@ -37,12 +35,12 @@ class CommonModal extends Component {
     handleCancel = ()=>{
         this.props.operateModal({},'cancel')
     };
-
   componentDidMount() {
   }
   render() {
       const {isLoading} = this.state;
       const {form: { getFieldDecorator }, openModal, openModalData:{record,flag}} = this.props;
+      console.log('record data is:', record);
     return (
         <Fragment>
           <Modal
@@ -54,40 +52,83 @@ class CommonModal extends Component {
             <Form>
               <Row gutter={8}>
                 <Col span={18}>
-                  <Form.Item label={'名称'} {...formItemLayout}>
-                      {getFieldDecorator('name', {
+                  <Form.Item label={'条目'} {...formItemLayout}>
+                      {getFieldDecorator('item', {
+                        initialValue:record && record.item || ''
                       })(
                           <Input/>
                       )}
                   </Form.Item>
                 </Col>
                 <Col span={18}>
-                  <Form.Item label={'账号'} {...formItemLayout}>
-                      {getFieldDecorator('user', {
+                  <Form.Item label={'种类'} {...formItemLayout}>
+                      {getFieldDecorator('category', {
+                          initialValue:record && record.category || ''
                       })(
                           <Input/>
                       )}
                   </Form.Item>
                 </Col>
                 <Col span={18}>
-                  <Form.Item label={'密码'} {...formItemLayout}>
-                      {getFieldDecorator('pwd', {
+                  <Form.Item label={'金额'} {...formItemLayout}>
+                      {getFieldDecorator('num', {
+                          initialValue:record && record.num || ''
                       })(
                           <Input/>
                       )}
                   </Form.Item>
                 </Col>
                 <Col span={18}>
-                  <Form.Item label={'提示'} {...formItemLayout}>
+                  <Form.Item label={'支付方式'} {...formItemLayout}>
+                      {getFieldDecorator('payMethods', {
+                          initialValue:record && record.payMethods || ''
+                      })(
+                          <Input/>
+                      )}
+                  </Form.Item>
+                </Col>
+                <Col span={18}>
+                  <Form.Item label={'消费地点'} {...formItemLayout}>
+                      {getFieldDecorator('consumptionPlace', {
+                          initialValue:record && record.consumptionPlace || ''
+                      })(
+                          <Input/>
+                      )}
+                  </Form.Item>
+                </Col>
+
+                {/**/}
+                <Col span={18}>
+                  <Form.Item label={'消费时间'} {...formItemLayout}>
+                      {getFieldDecorator('consumptionDate', {
+                          initialValue:record && record.consumptionDate || ''
+                      })(
+                          <Input/>
+                      )}
+                  </Form.Item>
+                </Col>
+                <Col span={18}>
+                  <Form.Item label={'消费者'} {...formItemLayout}>
+                      {getFieldDecorator('consumer', {
+                          initialValue:record && record.consumer || ''
+                      })(
+                          <Input/>
+                      )}
+                  </Form.Item>
+                </Col>
+                <Col span={18}>
+                  <Form.Item label={'创建时间'} {...formItemLayout}>
+                      {getFieldDecorator('createTime', {
+                          initialValue:record && record.createTime || ''
+                      })(
+                          <Input/>
+                      )}
+                  </Form.Item>
+                </Col>
+                <Col span={18}>
+                  <Form.Item label={'备注'} {...formItemLayout}>
                       {getFieldDecorator('tips', {
-                      })(
-                          <Input/>
-                      )}
-                  </Form.Item>
-                </Col>
-                <Col span={18}>
-                  <Form.Item label={'描述'} {...formItemLayout}>
-                      {getFieldDecorator('description', {
+                          initialValue:record && record.tips || ''
                       })(
                           <Input/>
                       )}

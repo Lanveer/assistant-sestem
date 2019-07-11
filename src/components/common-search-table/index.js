@@ -23,7 +23,6 @@ class CommonSearchTable extends Component {
     const { tableColumns, tableData } = this.props;
     return (
       <div className="common-search-table">
-        <Button className="add" type="primary" onClick={()=>{this.add({},'add')}}><Icon type="add" />新增</Button>
         <Spin spinning={false}>
           <Table
             style={{clear:'both'}}

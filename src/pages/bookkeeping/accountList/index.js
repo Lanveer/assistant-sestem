@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import {  Button, Icon } from 'antd';
+import {  Button, Icon, Modal } from 'antd';
 import '.././style.scss';
 import CommonSearchHeader from 'components/common-search-header';
 import CommonSearchTable from 'components/common-search-table';
 import CommonModal from 'components/common-modal';
 import moment from 'moment/moment';
 import {TIME_FOMATE} from 'constants/constant';
-
+const confirm = Modal.confirm;
 function setDefaultValue(value, type = 'text', record = {}) {
   let renderStr = '-';
   if (!_.isNull(value) && !_.isUndefined(value)) {
@@ -58,7 +58,6 @@ class Dashboard extends Component {
         openModal:false
     };
   }
-
   tableColumns=[
     {
         title: '序号',
@@ -157,7 +156,7 @@ class Dashboard extends Component {
             return (
                 <div className="operate">
                   <Button className="edit" type="primary" onClick={()=>{this.openModal(text, 'edit')}}><Icon type="edit" />编辑</Button>
-                  <Button className="delete" type="danger" onClick={()=>{this.delete(record,'delete')}}><Icon type="delete" />删除</Button>
+                  <Button className="delete" type="danger" onClick={()=>{this.delete(text,'delete')}}><Icon type="delete" />删除</Button>
                 </div>
             )
         }
@@ -172,11 +171,12 @@ class Dashboard extends Component {
 
     // modal 点击事件
     operateModal = (data, flag)=>{
+        console.log('data is:', data);
       if(flag=== 'edit'){
 
       }else if(flag==='delete'){
 
-      }else if(flag==='cancel'){
+      }else if(flag==='add'){
 
       }
         this.setState({
@@ -189,7 +189,6 @@ class Dashboard extends Component {
     // open modal
     openModal=(obj, flag)=>{
       console.log('obj is:', obj);
-
       let modalParams={};
       modalParams.record= obj,
       modalParams.flag= flag;
@@ -198,12 +197,27 @@ class Dashboard extends Component {
             openModal:true
         })
     };
+
+    // delete
+    delete = (record)=>{
+        let that = this;
+        confirm({
+            title: `确定要删除名称为${record.item}的数据`,
+            content: '删除后可以在数据库备份中找回',
+            onOk() {
+            },
+            onCancel() {
+                console.log('Cancel');
+            }
+        });
+    };
   render() {
     const {openModalData,openModal} = this.state;
     console.log('openModalData data is:',openModalData);
     return (
       <div className="account-container">
         <CommonSearchHeader formData={formData} submitData={this.submitData}/>
+        <Button className="add" type="primary" onClick={()=>{this.openModal({},'add')}}><Icon type="add" />新增</Button>
         <CommonSearchTable tableColumns ={this.tableColumns} tableData={tableData}/>
         <CommonModal openModalData={openModalData} openModal={openModal} operateModal={this.operateModal}/>
       </div>
