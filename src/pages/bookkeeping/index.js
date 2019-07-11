@@ -21,7 +21,7 @@ class Dashboard extends Component {
 
     return (
       <div className="dashboard-container">
-        <h1>这是信息板块</h1>
+        <h1>jizhang </h1>
       </div>
     );
   }

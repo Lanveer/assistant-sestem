@@ -7,8 +7,6 @@ import { connect } from 'dva';
 import { Layout, Spin } from 'antd';
 import PageHeader from 'components/page-header';
 import PageConten from 'components/page-content';
-import _ from 'lodash';
-
 const userMenu = [
   {
     "code": "passwordManage",
@@ -23,8 +21,8 @@ const userMenu = [
     ]
   },
   {
-    "code": "dashboard",
-    "name": "密码管理1",
+    "code": "bookKeeping",
+    "name": "记账功能",
     "order": 0,
     "parentId": null,
     "id": null,

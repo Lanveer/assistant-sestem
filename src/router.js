@@ -40,8 +40,8 @@ function getLayout(navData, path) {
 const initRouteConfig = [
   'user',
   'passwordManage',
+  'bookKeeping',
   'approvelCenter',
-  'dashboard',
   'fileManage',
   'newApprovelCenter',
   'postLoan',

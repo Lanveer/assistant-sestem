@@ -12,10 +12,17 @@ export default app => [
         )
       },
       {
-        name: '信息',
-        path: 'dashboard',
+        path: 'bookKeeping',
         component: dynamicWrapper(app, [], () =>
-          import('pages/basic/dashboard')
+          import('pages/bookkeeping')
+        )
+      },
+      {
+        name: '账目列表',
+        path: '/bookKeeping/accountList',
+        exact: true,
+        component: dynamicWrapper(app, [], () =>
+          import('pages/bookkeeping/accountList')
         )
       },
       {

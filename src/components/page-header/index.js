@@ -24,7 +24,7 @@ const PageHeader = props => {
   );
   return (
     <Header className="rc-header">
-      <div onClick={() => history.push('/search')} className="rc-header-logo">
+      <div onClick={() => history.push('/passwordManage')} className="rc-header-logo">
         <img src={Logo} />
         <div className="login-seperator" />
         <h1>个人助手系统</h1>
@@ -36,7 +36,7 @@ const PageHeader = props => {
             if (ROUTE_MENU_DIC[item.code] === 'newApprovelCenter') {
               return (
                 <SubMenu
-                  title="审批中心"
+                  title="qitafongxi"
                   style={commonBottom}
                   key={`${ROUTE_MENU_DIC[item.code]}`}
                 >
@@ -58,6 +58,25 @@ const PageHeader = props => {
                   <Menu.Item key="creditInquiry">
                     <Link to={{ pathname: '/newApprovelCenter/creditInquiry' }}>
                       授查询
+                    </Link>
+                  </Menu.Item>
+                </SubMenu>
+              );
+            }else if(ROUTE_MENU_DIC[item.code] === 'bookKeeping'){
+              return (
+                <SubMenu
+                  title="记账功能"
+                  style={commonBottom}
+                  key={`${ROUTE_MENU_DIC[item.code]}`}
+                >
+                  <Menu.Item key="accountList">
+                    <Link to={{ pathname: '/bookKeeping/accountList' }}>
+                      账目列表
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item key="supportQuery">
+                    <Link to={{ pathname: '/newApprovelCenter/supportQuery' }}>
+                      查询
                     </Link>
                   </Menu.Item>
                 </SubMenu>

@@ -39,10 +39,10 @@ export const formItemLayout = {
 
 //
 export const ROUTE_MENU_DIC = {
-  dashboard: 'dashboard',
+  passwordManage: 'passwordManage',
+  bookKeeping: 'bookKeeping',
   credit: 'newApprovelCenter',
   credit_supply_chain: 'approvelCenter',
-  passwordManage: 'passwordManage',
   archive: 'fileManage',
   error: 'error',
   post_loan: 'postLoan',
