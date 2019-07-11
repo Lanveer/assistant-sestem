@@ -1,32 +1,6 @@
 .account-container {
   display: flex;
   flex-direction: column;
-  .account-header-wrapper{
-    display: flex;
-    background-color: #fff;
-    flex-direction: column;
-    padding: 16px 12px;
-    border: 1px solid #e8e8e8;
-    &:hover {
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
-      border-color: rgba(0, 0, 0, 0.09);
-    }
-    .account-header-prams-wrapper{
-      display: grid;
-      grid-template-columns: repeat(3, minmax(400px, 1fr));
-      border-radius: 4px;
-      grid-row-gap: 4px;
-      .form-item-wrapper {
-        margin: auto 0px;
-      }
-    }
-    .button-wrapper{
-      width: 500px;
-      float: right;
-      border: none;
-      button{
-        margin-right: 20px;
-      }
-    }
-  }
 }
+
+

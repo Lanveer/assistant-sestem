@@ -223,9 +223,6 @@ export default class OrderSearchResult extends Component {
   };
 
   onShowSizeChange = (current, pageSize) =>{
-    console.log('current is:', current);
-    console.log('pageSize is:', pageSize);
-
     this.setState({
       page:current,
       pagesize:pageSize

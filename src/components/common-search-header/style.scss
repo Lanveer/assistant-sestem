@@ -1,7 +1,7 @@
-.account-container {
+.common-search-header {
   display: flex;
   flex-direction: column;
-  .account-header-wrapper{
+  .common-search-header-wrapper{
     display: flex;
     background-color: #fff;
     flex-direction: column;
@@ -11,7 +11,7 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
       border-color: rgba(0, 0, 0, 0.09);
     }
-    .account-header-prams-wrapper{
+    .common-search-header-prams-wrapper{
       display: grid;
       grid-template-columns: repeat(3, minmax(400px, 1fr));
       border-radius: 4px;
@@ -34,7 +34,8 @@
         }
       }
     }
-    .button-wrapper{
+
+    .common-search-header-button-wrapper{
       width: 500px;
       margin: 20px 0 0 50px;
       height: 40px;

@@ -22,7 +22,7 @@ class CommonSearchHeader extends Component {
     const { form } = this.props;
     form.validateFields((errors, values) => {
       if (errors) return;
-      console.log('values data is:', values);
+      this.props.submitData(values)
     });
   };
 
@@ -44,14 +44,13 @@ class CommonSearchHeader extends Component {
     };
 
     return (
-      <div className="account-container">
-        <div className="account-header-wrapper">
-          <div className="account-header-prams-wrapper">
+      <div className="common-search-header">
+        <div className="common-search-header-wrapper">
+          <div className="common-search-header-prams-wrapper">
             <div className="form-item-wrapper">
               <ul>
                 {
                   formData.map(item=>{
-                    console.log('item dats is:', item);
                     return(
                       <li key={item.name}>
                         <Form.Item label={item.name} {...formItemLayout}>
@@ -66,7 +65,7 @@ class CommonSearchHeader extends Component {
               </ul>
             </div>
           </div>
-          <div className="button-wrapper">
+          <div className="common-search-header-button-wrapper">
             <Button onClick={()=>{this.handleSubmitForm()}} type="primary" icon="search">查询</Button>
             <Button onClick={()=>{this.handleResetForm()}} type="ghost" icon="delete">重置</Button>
           </div>
