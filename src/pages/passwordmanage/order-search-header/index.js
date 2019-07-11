@@ -27,7 +27,6 @@ export default class OrderSearchHeader extends Component {
     this.state = {
     };
   }
-
   getFormFilterParams = () => {
     const { form } = this.props;
     let filterParams = {};

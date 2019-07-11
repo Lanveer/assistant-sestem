@@ -1,27 +1,39 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { Form } from 'antd';
-// import './style.scss';
+import {  Button } from 'antd';
+import '.././style.scss';
+import CommonSearchHeader from 'components/common-search-header';
 
 
-@Form.create()
+
+const formData = [
+  {
+    name:'name',
+    value:true,
+    errMsg:'must have!'
+  },
+  {
+    name:'pwd',
+    value:true,
+    errMsg:'must have!'
+  }
+];
+
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
-
   }
   componentDidMount() {
-  }
 
+  }
 
 
   render() {
-
     return (
-      <div className="dashboard-container">
-        <h1>account list </h1>
+      <div className="account-container">
+        <CommonSearchHeader formData={formData}/>
       </div>
     );
   }

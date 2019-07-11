@@ -18,11 +18,30 @@
       grid-row-gap: 4px;
       .form-item-wrapper {
         margin: auto 0px;
+        >ul{
+          list-style: none;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          vertical-align:middle;
+          justify-content: space-between;
+          li{
+            width: 400px;
+            margin-right: 20px;
+            height: 30px;
+            float: left;
+          }
+        }
       }
     }
     .button-wrapper{
       width: 500px;
-      float: right;
+      margin: 20px 0 0 50px;
+      height: 40px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: left;
       border: none;
       button{
         margin-right: 20px;
