@@ -18,6 +18,8 @@ function setDefaultValue(value, type = 'text', record = {}) {
   }
   return <span>{renderStr}</span>;
 }
+
+// search-header data
 const formData = [
   {
     name:'name',
@@ -31,13 +33,15 @@ const formData = [
   }
 ];
 
+
+// mock data
 const tableData=[
   {
    id:1,
    item:'eating',
-   category:'sales',
+   category:'eating',
    num:100,
-   payMethods:'ant pay',
+   payMethods:'ant_pay',
    consumptionPlace:'mall',
    consumptionDate:'2019/08/01',
    consumer:'lanveer',
@@ -58,6 +62,8 @@ class Dashboard extends Component {
         openModal:false
     };
   }
+
+  // table data
   tableColumns=[
     {
         title: '序号',
@@ -162,6 +168,92 @@ class Dashboard extends Component {
         }
     },
 ];
+
+  // modal data
+  modalData=[
+    {
+      title: '条目',
+      dataIndex: 'item',
+      required:true,
+      errMsg:'请输入条目',
+      type:'input'
+    },
+    {
+      title: '种类',
+      dataIndex: 'category',
+      required:true,
+      errMsg:'请选择种类',
+      type:'select',
+      data:[
+        {
+          category_id:1,
+          category_name:'吃饭',
+          category_code:'eating',
+        },
+        {
+          category_id:2,
+          category_name:'穿着',
+          category_code:'clothing',
+        },
+        {
+          category_id:3,
+          category_name:'交通',
+          category_code:'transport',
+        }
+      ]
+    },
+    {
+      title: '金额',
+      dataIndex: 'num',
+      required:true,
+      errMsg:'请输入金额',
+      type:'input'
+    },
+    {
+      title: '支付方式',
+      dataIndex: 'payMethods',
+      required:true,
+      errMsg:'请选择支付方式',
+      type:'select'
+    },
+    {
+      title: '消费地点',
+      dataIndex: 'consumptionPlace',
+      required:true,
+      errMsg:'请输入消费地点',
+      type:'input'
+    },
+    {
+      title: '消费时间',
+      dataIndex: 'consumptionDate',
+      required:true,
+      errMsg:'请选择消费时间',
+      type:'date'
+    },
+    {
+      title: '消费者',
+      dataIndex: 'consumer',
+      required:true,
+      errMsg:'请输入消费者',
+      type:'input'
+    },
+    {
+      title: '创建时间',
+      dataIndex: 'createTime',
+      required:true,
+      errMsg:'请选择创建时间',
+      type:'date'
+    },
+    {
+      title: '备注',
+      dataIndex: 'tips',
+      required:true,
+      errMsg:'请输入tips',
+      type:'input'
+    },
+  ];
+
+
   componentDidMount() {
   }
 
@@ -219,7 +311,7 @@ class Dashboard extends Component {
         <CommonSearchHeader formData={formData} submitData={this.submitData}/>
         <Button className="add" type="primary" onClick={()=>{this.openModal({},'add')}}><Icon type="add" />新增</Button>
         <CommonSearchTable tableColumns ={this.tableColumns} tableData={tableData}/>
-        <CommonModal openModalData={openModalData} openModal={openModal} operateModal={this.operateModal}/>
+        <CommonModal openModalData={openModalData} openModal={openModal} operateModal={this.operateModal} modalData={this.modalData}/>
       </div>
     );
   }

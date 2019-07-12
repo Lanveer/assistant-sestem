@@ -1,8 +1,8 @@
 import React, {Component, Fragment} from 'react';
 import moment from 'moment';
 import _ from 'lodash';
-import { Table, Button, Icon, Modal, Form, Row, Col,Input,Pagination, message, Spin  } from 'antd';
-
+import { Table, Button, Icon, Modal, Form, Row, Col,Input,Pagination, message, Spin, Select   } from 'antd';
+const Option = Select.Option;
 const formItemLayout = {
     labelCol: {
         xs: { span: 24 },
@@ -39,8 +39,8 @@ class CommonModal extends Component {
   }
   render() {
       const {isLoading} = this.state;
-      const {form: { getFieldDecorator }, openModal, openModalData:{record,flag}} = this.props;
-      console.log('record data is:', record);
+      const {form: { getFieldDecorator }, openModal,modalData, openModalData:{record,flag}} = this.props;
+      console.log('modalData data is:', modalData);
     return (
         <Fragment>
           <Modal
@@ -51,89 +51,59 @@ class CommonModal extends Component {
           >
             <Form>
               <Row gutter={8}>
-                <Col span={18}>
-                  <Form.Item label={'条目'} {...formItemLayout}>
-                      {getFieldDecorator('item', {
-                        initialValue:record && record.item || ''
-                      })(
-                          <Input/>
-                      )}
-                  </Form.Item>
-                </Col>
-                <Col span={18}>
-                  <Form.Item label={'种类'} {...formItemLayout}>
-                      {getFieldDecorator('category', {
-                          initialValue:record && record.category || ''
-                      })(
-                          <Input/>
-                      )}
-                  </Form.Item>
-                </Col>
-                <Col span={18}>
-                  <Form.Item label={'金额'} {...formItemLayout}>
-                      {getFieldDecorator('num', {
-                          initialValue:record && record.num || ''
-                      })(
-                          <Input/>
-                      )}
-                  </Form.Item>
-                </Col>
-                <Col span={18}>
-                  <Form.Item label={'支付方式'} {...formItemLayout}>
-                      {getFieldDecorator('payMethods', {
-                          initialValue:record && record.payMethods || ''
-                      })(
-                          <Input/>
-                      )}
-                  </Form.Item>
-                </Col>
-                <Col span={18}>
-                  <Form.Item label={'消费地点'} {...formItemLayout}>
-                      {getFieldDecorator('consumptionPlace', {
-                          initialValue:record && record.consumptionPlace || ''
-                      })(
-                          <Input/>
-                      )}
-                  </Form.Item>
-                </Col>
-
-                {/**/}
-                <Col span={18}>
-                  <Form.Item label={'消费时间'} {...formItemLayout}>
-                      {getFieldDecorator('consumptionDate', {
-                          initialValue:record && record.consumptionDate || ''
-                      })(
-                          <Input/>
-                      )}
-                  </Form.Item>
-                </Col>
-                <Col span={18}>
-                  <Form.Item label={'消费者'} {...formItemLayout}>
-                      {getFieldDecorator('consumer', {
-                          initialValue:record && record.consumer || ''
-                      })(
-                          <Input/>
-                      )}
-                  </Form.Item>
-                </Col>
-                <Col span={18}>
-                  <Form.Item label={'创建时间'} {...formItemLayout}>
-                      {getFieldDecorator('createTime', {
-                          initialValue:record && record.createTime || ''
-                      })(
-                          <Input/>
-                      )}
-                  </Form.Item>
-                </Col>
-                <Col span={18}>
-                  <Form.Item label={'备注'} {...formItemLayout}>
-                      {getFieldDecorator('tips', {
-                          initialValue:record && record.tips || ''
-                      })(
-                          <Input/>
-                      )}
-                  </Form.Item>
-                </Col>
+                {
+                  modalData && modalData.map(item=>{
+                    if(item.type=== 'select'){
+                      return (
+                        <Col span={18} key={item.dataIndex}>
+                          <Form.Item label={item.title} {...formItemLayout}>
+                            {getFieldDecorator(`${item.dataIndex}`, {
+                              initialValue:`${record && record[item.dataIndex] || ''}`,
+                              rules: [{ required: `${item.required}`, message: `${item.errMsg}` }]
+                            })(
+                              <Select showSearch={false}>
+                                {
+                                  item.data && item.data.map(c_item=>{
+                                    return(
+                                      <Option value={c_item.category_code} key={`${c_item.category_code}`}> {c_item.category_name}</Option>
+                                    )
+                                  })
+                                }
+                              </Select>
+                            )}
+                          </Form.Item>
+                        </Col>
+                      )
+                    }else{
+                      return(
+                        <Col span={18} key={item.dataIndex}>
+                          <Form.Item label={item.title} {...formItemLayout}>
+                            {getFieldDecorator(`${item.dataIndex}`, {
+                              initialValue:`${record && record[item.dataIndex] || ''}`,
+                              rules: [{ required: `${item.required}`, message: `${item.errMsg}` }]
+                            })(
+                              <Input/>
+                            )}
+                          </Form.Item>
+                        </Col>
+                      )
+                    }
+                  })
+                }
+                {/*<Col span={18}>*/}
+                  {/*<Form.Item label={'条目'} {...formItemLayout}>*/}
+                      {/*{getFieldDecorator('item', {*/}
+                        {/*initialValue:'jack',*/}
+                        {/*rules: [{ required: true, message: '请输入密码' }]*/}
+                      {/*})(*/}
+                        {/*<Select*/}
+                                {/*style={{ width: 200 }}*/}
+                                {/*showSearch={false}>*/}
+                            {/*<Option value="1jack">jack</Option>*/}
+                        {/*</Select>*/}
+                      {/*)}*/}
+                  {/*</Form.Item>*/}
+                {/*</Col>*/}
               </Row>
             </Form>
           </Modal>
