@@ -94,7 +94,6 @@ const userMenu = [
   }
 ];
 @connect(state => ({
-  currentUser: state.user.currentUser,
   global: state.global
 }))
 export default class BasicLayout extends PureComponent {
@@ -111,9 +110,18 @@ export default class BasicLayout extends PureComponent {
   constructor(props) {
     super(props);
     this.logout = this.logout.bind(this);
+    this.state={
+      currentUser:''
+    }
   }
 
   componentDidMount() {
+    // console.log('this.props.global user data is:', this.props);
+    let currentUser =localStorage.getItem('user');
+    this.setState({
+      currentUser
+    })
+
   }
 
   logout() {
@@ -122,9 +130,9 @@ export default class BasicLayout extends PureComponent {
       type: 'user/logoutAct'
     });
   }
-
   render() {
-    const { history, navData, match } = this.props;
+    const { history, navData, match} = this.props;
+    const {currentUser} = this.state;
     const showMenu = true;
     return (
       <ContainerQuery query={RESPONSIVE_QUERY}>
@@ -141,7 +149,7 @@ export default class BasicLayout extends PureComponent {
                   key="header"
                   history={history}
                   logout={this.logout}
-                  userInfo={{name:'lanveer'}}
+                  userInfo={{name:currentUser}}
                   userMenu={userMenu}
                 />
                 <PageConten

@@ -21,17 +21,26 @@ export default class Login extends Component {
   componentDidMount() {
   }
 
+
+  callback=(res)=>{
+    console.log('callback res is:', res)
+  }
+
   onLoginClick = () => {
     const { form, dispatch } = this.props;
-
     form.validateFields((errors, values) => {
       if (errors) return;
-      const { identity, password } = values;
+      const { user, password } = values;
       dispatch({
         type: 'user/loginAct',
         payload: {
-          identity,
+          user,
           password
+        },
+        callback:(res) => {
+          if (res) {
+            console.log('call back res is:', res);
+          }
         }
       });
     });
@@ -56,7 +65,7 @@ export default class Login extends Component {
               <Card title="欢迎登录个人助手系统">
                 <Form className="login-form">
                   <Form.Item className="login-form-item">
-                    {getFieldDecorator('identity', {
+                    {getFieldDecorator('user', {
                       rules: [{ required: true, message: '请输入账号' }]
                     })(
                       <Input
