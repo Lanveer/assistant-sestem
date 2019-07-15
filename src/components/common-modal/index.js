@@ -54,12 +54,11 @@ class CommonModal extends Component {
                   modalData && modalData.map(item=>{
                     if(item.type=== 'select'){
                       if(item.dataIndex === 'category'){
-                        console.log('record[item.dataIndex] is:',  item.data[0].category_name);
                         return (
                           <Col span={18} key={item.dataIndex}>
                             <Form.Item label={item.title} {...formItemLayout}>
                               {getFieldDecorator(`${item.dataIndex}`, {
-                                initialValue:`${ item.data[parseInt(record && record.category -1)] && item.data[parseInt(record && record.category -1)].category_name}`,
+                                initialValue:`${ item.data[parseInt(record && record.category -1)] && item.data[parseInt(record && record.category -1)].category_name || ''}`,
                                 rules: [{ required: `${item.required}`, message: `${item.errMsg}` }]
                               })(
                                 <Select showSearch={false}>
@@ -80,7 +79,7 @@ class CommonModal extends Component {
                           <Col span={18} key={item.dataIndex}>
                             <Form.Item label={item.title} {...formItemLayout}>
                               {getFieldDecorator(`${item.dataIndex}`, {
-                                initialValue:`${item.data[parseInt(record && record.payMethods -1)] && item.data[parseInt(record && record.payMethods -1)].payMethods_name}`,
+                                initialValue:`${item.data[parseInt(record && record.payMethods -1)] && item.data[parseInt(record && record.payMethods -1)].payMethods_name || ''}`,
                                 rules: [{ required: `${item.required}`, message: `${item.errMsg}` }]
                               })(
                                 <Select showSearch={false}>
@@ -103,11 +102,10 @@ class CommonModal extends Component {
                           {
                             record && record[item.dataIndex] ?
                               <Form.Item label={item.title} {...formItemLayout}>
-                                {getFieldDecorator(`${item.dataIndex}`, {
-                                  initialValue:`${moment(record && record[item.dataIndex]).format('YYYY-MM-DD HH:mm:ss') || ''}`,
+                                {getFieldDecorator(`${item.dataIndex}`, {// initialValue:`${moment(record && record[item.dataIndex]).format('YYYY-MM-DD HH:mm:ss') || ''}`,
                                   rules: [{ required: `${item.required}`, message: `${item.errMsg}` }]
                                 })(
-                                  <Input/>
+                                  <DatePicker defaultValue={moment(record && record[item.dataIndex], 'YYYY-MM-DD')}/>
                                 )}
                               </Form.Item>
                               :
@@ -116,7 +114,7 @@ class CommonModal extends Component {
                                   initialValue:`${record && record[item.dataIndex] || ''}`,
                                   rules: [{ required: `${item.required}`, message: `${item.errMsg}` }]
                                 })(
-                                  <DatePicker/>
+                                  <DatePicker defaultValue={moment(new Date(), 'YYYY-MM-DD')}/>
                                 )}
                               </Form.Item>
                           }
@@ -139,20 +137,6 @@ class CommonModal extends Component {
                     }
                   })
                 }
-                {/*<Col span={18}>*/}
-                  {/*<Form.Item label={'条目'} {...formItemLayout}>*/}
-                      {/*{getFieldDecorator('item', {*/}
-                        {/*initialValue:'jack',*/}
-                        {/*rules: [{ required: true, message: '请输入密码' }]*/}
-                      {/*})(*/}
-                        {/*<Select*/}
-                                {/*style={{ width: 200 }}*/}
-                                {/*showSearch={false}>*/}
-                            {/*<Option value="1jack">jack</Option>*/}
-                        {/*</Select>*/}
-                      {/*)}*/}
-                  {/*</Form.Item>*/}
-                {/*</Col>*/}
               </Row>
             </Form>
           </Modal>

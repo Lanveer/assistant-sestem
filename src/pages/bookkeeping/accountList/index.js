@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import {  Button, Icon, Modal } from 'antd';
+import {  Button, Icon, Modal, Spin, message } from 'antd';
 import '.././style.scss';
 import CommonSearchHeader from 'components/common-search-header';
 import CommonSearchTable from 'components/common-search-table';
@@ -9,6 +9,108 @@ import moment from 'moment/moment';
 import {TIME_FOMATE} from 'constants/constant';
 import {getList, addList, editeList, deleteList} from 'services/account_service'
 const confirm = Modal.confirm;
+
+
+// modal data
+const modalData=[
+  {
+    title: '条目',
+    dataIndex: 'item',
+    required:true,
+    errMsg:'请输入条目',
+    type:'input'
+  },
+  {
+    title: '种类',
+    dataIndex: 'category',
+    required:true,
+    errMsg:'请选择种类',
+    type:'select',
+    data:[
+      {
+        category_id:1,
+        category_name:'吃饭',
+        category_code:'eating',
+      },
+      {
+        category_id:2,
+        category_name:'穿着',
+        category_code:'clothing',
+      },
+      {
+        category_id:3,
+        category_name:'交通',
+        category_code:'transport',
+      }
+    ]
+  },
+  {
+    title: '金额',
+    dataIndex: 'num',
+    required:true,
+    errMsg:'请输入金额',
+    type:'input'
+  },
+  {
+    title: '支付方式',
+    dataIndex: 'payMethods',
+    required:true,
+    errMsg:'请选择支付方式',
+    type:'select',
+    data:[
+      {
+        payMethods_id:1,
+        payMethods_name:'微信',
+        payMethods_code:'weixiPay',
+      },
+      {
+        payMethods_id:2,
+        payMethods_name:'支付宝',
+        payMethods_code:'aliPay',
+      },
+      {
+        payMethods_id:3,
+        payMethods_name:'现金',
+        payMethods_code:'cash',
+      }
+    ]
+  },
+  {
+    title: '消费地点',
+    dataIndex: 'consumptionPlace',
+    required:true,
+    errMsg:'请输入消费地点',
+    type:'input'
+  },
+  {
+    title: '消费时间',
+    dataIndex: 'consumptionDate',
+    required:true,
+    errMsg:'请选择消费时间',
+    type:'date'
+  },
+  {
+    title: '消费者',
+    dataIndex: 'consumer',
+    required:true,
+    errMsg:'请输入消费者',
+    type:'input'
+  },
+  {
+    title: '创建时间',
+    dataIndex: 'createTime',
+    required:true,
+    errMsg:'请选择创建时间',
+    type:'date'
+  },
+  {
+    title: '备注',
+    dataIndex: 'tips',
+    required:true,
+    errMsg:'请输入tips',
+    type:'input'
+  },
+];
 function setDefaultValue(value, type = 'text', record = {}) {
   let renderStr = '-';
   if (!_.isNull(value) && !_.isUndefined(value)) {
@@ -16,8 +118,43 @@ function setDefaultValue(value, type = 'text', record = {}) {
     if (type === 'date') {
       renderStr = moment(value).format(TIME_FOMATE);
     }
+    else if(type === 'category'){
+      renderStr= categoryTransfer(value, 'category');
+    }
+    else if(type==='payMethods'){
+      renderStr= categoryTransfer(value, 'payMethods');
+    }
   }
   return <span>{renderStr}</span>;
+}
+
+function categoryTransfer(val, flag) {
+  let str='';
+  let temp=[];
+  if(flag === 'category') {
+    modalData.map(item=>{
+      if(item.dataIndex==='category'){
+        temp.push(item.data);
+      }
+    });
+    temp[0].map(i=>{
+      if(i.category_code === val){
+        str = i.category_name
+      }
+    });
+  }else{
+    modalData.map(item=>{
+      if(item.dataIndex==='payMethods'){
+        temp.push(item.data);
+      }
+    });
+    temp[0].map(i=>{
+      if(i.payMethods_code === val){
+        str = i.payMethods_name
+      }
+    });
+  }
+  return str;
 }
 
 // search-header data
@@ -33,28 +170,6 @@ const formData = [
     errMsg:'must have!'
   }
 ];
-
-
-// mock data
-const tableData=[
-  {
-   id:1,
-   item:'eating',
-   category:'eating',
-   num:100,
-   payMethods:'ant_pay',
-   consumptionPlace:'mall',
-   consumptionDate:'2019/08/01',
-   consumer:'lanveer',
-   createTime:'2019/07/11',
-   tips:'something',
-      operate:'eweewew'
-  }
-];
-
-
-
-
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -90,10 +205,10 @@ class Dashboard extends Component {
     },
     {
         title: '种类',
-        dataIndex: 'catergory',
+        dataIndex: 'category',
         render:(text)=>{
             return(
-                setDefaultValue(text)
+                setDefaultValue(text, 'category')
             )
         }
     },
@@ -111,7 +226,7 @@ class Dashboard extends Component {
         dataIndex: 'payMethods',
         render:(text)=>{
             return(
-                setDefaultValue(text)
+                setDefaultValue(text, 'payMethods')
             )
         }
     },
@@ -174,106 +289,6 @@ class Dashboard extends Component {
     },
 ];
 
-  // modal data
-  modalData=[
-    {
-      title: '条目',
-      dataIndex: 'item',
-      required:true,
-      errMsg:'请输入条目',
-      type:'input'
-    },
-    {
-      title: '种类',
-      dataIndex: 'category',
-      required:true,
-      errMsg:'请选择种类',
-      type:'select',
-      data:[
-        {
-          category_id:1,
-          category_name:'吃饭',
-          category_code:'eating',
-        },
-        {
-          category_id:2,
-          category_name:'穿着',
-          category_code:'clothing',
-        },
-        {
-          category_id:3,
-          category_name:'交通',
-          category_code:'transport',
-        }
-      ]
-    },
-    {
-      title: '金额',
-      dataIndex: 'num',
-      required:true,
-      errMsg:'请输入金额',
-      type:'input'
-    },
-    {
-      title: '支付方式',
-      dataIndex: 'payMethods',
-      required:true,
-      errMsg:'请选择支付方式',
-      type:'select',
-      data:[
-        {
-          payMethods_id:1,
-          payMethods_name:'微信',
-          payMethods_code:'weixiPay',
-        },
-        {
-          payMethods_id:2,
-          payMethods_name:'支付宝',
-          payMethods_code:'aliPay',
-        },
-        {
-          payMethods_id:3,
-          payMethods_name:'现金',
-          payMethods_code:'cash',
-        }
-      ]
-    },
-    {
-      title: '消费地点',
-      dataIndex: 'consumptionPlace',
-      required:true,
-      errMsg:'请输入消费地点',
-      type:'input'
-    },
-    {
-      title: '消费时间',
-      dataIndex: 'consumptionDate',
-      required:true,
-      errMsg:'请选择消费时间',
-      type:'date'
-    },
-    {
-      title: '消费者',
-      dataIndex: 'consumer',
-      required:true,
-      errMsg:'请输入消费者',
-      type:'input'
-    },
-    {
-      title: '创建时间',
-      dataIndex: 'createTime',
-      required:true,
-      errMsg:'请选择创建时间',
-      type:'date'
-    },
-    {
-      title: '备注',
-      dataIndex: 'tips',
-      required:true,
-      errMsg:'请输入tips',
-      type:'input'
-    },
-  ];
 
 
   componentDidMount() {
@@ -282,9 +297,9 @@ class Dashboard extends Component {
   }
     // get list data
     getListData = (page=1, pagesize=10)=>{
-        this.setState({
-            isLoading:true
-        });
+      this.setState({
+        isLoading:true
+      });
         const pms = {
             page,
             pagesize,
@@ -303,17 +318,27 @@ class Dashboard extends Component {
   submitData = (b)=>{
     console.log('call back data is:', b)
   };
-
     // modal 点击事件
     operateModal = (data, flag)=>{
         console.log('data is:', data);
+        let consumptionDate = moment(data.consumptionDate).format('YYYY-MM-DD HH:mm:ss');
+        let createTime = moment(data.createTime).format('YYYY-MM-DD HH:mm:ss');
+        let params = {...data, consumptionDate, createTime};
       if(flag=== 'edit'){
 
       }else if(flag==='delete'){
 
 
       }else if(flag==='add'){
-
+        addList(params).then(r=>{
+           console.log('add res data is:', r);
+          if(r && r.result.status === 200) {
+            message.success('添加成功');
+            this.getListData()
+          }else{
+            message.error('添加失败')
+          }
+        })
       }
         this.setState({
             openModal:false
@@ -348,13 +373,15 @@ class Dashboard extends Component {
         });
     };
   render() {
-    const {openModalData,openModal,listData} = this.state;
+    const {openModalData,openModal,listData, isLoading} = this.state;
     return (
       <div className="account-container">
         <CommonSearchHeader formData={formData} submitData={this.submitData}/>
         <Button className="add" type="primary" onClick={()=>{this.openModal({},'add')}}><Icon type="add" />新增</Button>
-        <CommonSearchTable tableColumns ={this.tableColumns} tableData={listData}/>
-        <CommonModal openModalData={openModalData} openModal={openModal} operateModal={this.operateModal} modalData={this.modalData}/>
+        <Spin spinning={isLoading}>
+          <CommonSearchTable tableColumns ={this.tableColumns} tableData={listData}/>
+        </Spin>
+        <CommonModal openModalData={openModalData} openModal={openModal} operateModal={this.operateModal} modalData={modalData}/>
       </div>
     );
   }

@@ -8,8 +8,8 @@ function getList(pms) {
 
 
 
-function addList(id,pms) {
-  return post(`api/list`, {
+function addList(pms) {
+  return post(`api/accountlist`, {
     body: {
       ...pms
     }
