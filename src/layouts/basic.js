@@ -116,7 +116,6 @@ export default class BasicLayout extends PureComponent {
   }
 
   componentDidMount() {
-    // console.log('this.props.global user data is:', this.props);
     let currentUser =localStorage.getItem('user');
     this.setState({
       currentUser

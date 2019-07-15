@@ -90,7 +90,7 @@ class Dashboard extends Component {
     },
     {
         title: '种类',
-        dataIndex: 'category',
+        dataIndex: 'catergory',
         render:(text)=>{
             return(
                 setDefaultValue(text)
@@ -129,7 +129,7 @@ class Dashboard extends Component {
         dataIndex: 'consumptionDate',
         render:(text)=>{
             return(
-                setDefaultValue(text)
+                setDefaultValue(text , 'date')
             )
         }
     },
@@ -147,7 +147,7 @@ class Dashboard extends Component {
         dataIndex: 'createTime',
         render:(text)=>{
             return(
-                setDefaultValue(text)
+                setDefaultValue(text, 'date')
             )
         }
     },
@@ -219,7 +219,24 @@ class Dashboard extends Component {
       dataIndex: 'payMethods',
       required:true,
       errMsg:'请选择支付方式',
-      type:'select'
+      type:'select',
+      data:[
+        {
+          payMethods_id:1,
+          payMethods_name:'微信',
+          payMethods_code:'weixiPay',
+        },
+        {
+          payMethods_id:2,
+          payMethods_name:'支付宝',
+          payMethods_code:'aliPay',
+        },
+        {
+          payMethods_id:3,
+          payMethods_name:'现金',
+          payMethods_code:'cash',
+        }
+      ]
     },
     {
       title: '消费地点',
@@ -293,6 +310,7 @@ class Dashboard extends Component {
       if(flag=== 'edit'){
 
       }else if(flag==='delete'){
+
 
       }else if(flag==='add'){
 

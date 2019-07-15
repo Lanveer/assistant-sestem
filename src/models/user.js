@@ -1,5 +1,6 @@
 import { routerRedux } from 'dva/router';
 import {login} from 'services/login'
+import {message} from  'antd'
 export default {
   namespace: 'user',
   state: {
@@ -20,6 +21,7 @@ export default {
       }else{
         callback('登录失败');
         yield put(routerRedux.replace('/user/login'));
+        message.error(loginRes.result.result)
       }
 
       return false;

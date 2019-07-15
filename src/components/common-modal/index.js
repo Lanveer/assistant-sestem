@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import moment from 'moment';
 import _ from 'lodash';
-import { Table, Button, Icon, Modal, Form, Row, Col,Input,Pagination, message, Spin, Select   } from 'antd';
+import { Table, Button, Icon, Modal, Form, Row, Col,Input,Pagination, message, Spin, Select,DatePicker   } from 'antd';
 const Option = Select.Option;
 const formItemLayout = {
     labelCol: {
@@ -40,7 +40,6 @@ class CommonModal extends Component {
   render() {
       const {isLoading} = this.state;
       const {form: { getFieldDecorator }, openModal,modalData, openModalData:{record,flag}} = this.props;
-      console.log('modalData data is:', modalData);
     return (
         <Fragment>
           <Modal
@@ -54,24 +53,74 @@ class CommonModal extends Component {
                 {
                   modalData && modalData.map(item=>{
                     if(item.type=== 'select'){
+                      if(item.dataIndex === 'category'){
+                        console.log('record[item.dataIndex] is:',  item.data[0].category_name);
+                        return (
+                          <Col span={18} key={item.dataIndex}>
+                            <Form.Item label={item.title} {...formItemLayout}>
+                              {getFieldDecorator(`${item.dataIndex}`, {
+                                initialValue:`${ item.data[parseInt(record && record.category -1)] && item.data[parseInt(record && record.category -1)].category_name}`,
+                                rules: [{ required: `${item.required}`, message: `${item.errMsg}` }]
+                              })(
+                                <Select showSearch={false}>
+                                  {
+                                    item.data && item.data.map(c_item=>{
+                                      return(
+                                        <Option value={c_item.category_code} key={`${c_item.category_code}`}> {c_item.category_name}</Option>
+                                      )
+                                    })
+                                  }
+                                </Select>
+                              )}
+                            </Form.Item>
+                          </Col>
+                        )
+                      }else if(item.dataIndex === 'payMethods'){
+                        return (
+                          <Col span={18} key={item.dataIndex}>
+                            <Form.Item label={item.title} {...formItemLayout}>
+                              {getFieldDecorator(`${item.dataIndex}`, {
+                                initialValue:`${item.data[parseInt(record && record.payMethods -1)] && item.data[parseInt(record && record.payMethods -1)].payMethods_name}`,
+                                rules: [{ required: `${item.required}`, message: `${item.errMsg}` }]
+                              })(
+                                <Select showSearch={false}>
+                                  {
+                                    item.data && item.data.map(c_item=>{
+                                      return(
+                                        <Option value={c_item.payMethods_code} key={`${c_item.payMethods_name}`}> {c_item.payMethods_name}</Option>
+                                      )
+                                    })
+                                  }
+                                </Select>
+                              )}
+                            </Form.Item>
+                          </Col>
+                        )
+                      }
+                    }else if(item.type=== 'date'){
                       return (
                         <Col span={18} key={item.dataIndex}>
-                          <Form.Item label={item.title} {...formItemLayout}>
-                            {getFieldDecorator(`${item.dataIndex}`, {
-                              initialValue:`${record && record[item.dataIndex] || ''}`,
-                              rules: [{ required: `${item.required}`, message: `${item.errMsg}` }]
-                            })(
-                              <Select showSearch={false}>
-                                {
-                                  item.data && item.data.map(c_item=>{
-                                    return(
-                                      <Option value={c_item.category_code} key={`${c_item.category_code}`}> {c_item.category_name}</Option>
-                                    )
-                                  })
-                                }
-                              </Select>
-                            )}
-                          </Form.Item>
+                          {
+                            record && record[item.dataIndex] ?
+                              <Form.Item label={item.title} {...formItemLayout}>
+                                {getFieldDecorator(`${item.dataIndex}`, {
+                                  initialValue:`${moment(record && record[item.dataIndex]).format('YYYY-MM-DD HH:mm:ss') || ''}`,
+                                  rules: [{ required: `${item.required}`, message: `${item.errMsg}` }]
+                                })(
+                                  <Input/>
+                                )}
+                              </Form.Item>
+                              :
+                              <Form.Item label={item.title} {...formItemLayout}>
+                                {getFieldDecorator(`${item.dataIndex}`, {
+                                  initialValue:`${record && record[item.dataIndex] || ''}`,
+                                  rules: [{ required: `${item.required}`, message: `${item.errMsg}` }]
+                                })(
+                                  <DatePicker/>
+                                )}
+                              </Form.Item>
+                          }
+
                         </Col>
                       )
                     }else{
