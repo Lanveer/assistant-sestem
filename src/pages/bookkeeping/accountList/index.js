@@ -7,6 +7,7 @@ import CommonSearchTable from 'components/common-search-table';
 import CommonModal from 'components/common-modal';
 import moment from 'moment/moment';
 import {TIME_FOMATE} from 'constants/constant';
+import {getList, addList, editeList, deleteList} from 'services/account_service'
 const confirm = Modal.confirm;
 function setDefaultValue(value, type = 'text', record = {}) {
   let renderStr = '-';
@@ -59,7 +60,11 @@ class Dashboard extends Component {
     super(props);
     this.state = {
         openModalData:{},
-        openModal:false
+        openModal:false,
+        page:1,
+        pagesize:10,
+        isLoading:false,
+        listData:{},
     };
   }
 
@@ -255,8 +260,29 @@ class Dashboard extends Component {
 
 
   componentDidMount() {
+      const {page, pagesize} = this.state;
+      this.getListData(page, pagesize);
   }
-
+    // get list data
+    getListData = (page=1, pagesize=10)=>{
+        this.setState({
+            isLoading:true
+        });
+        const pms = {
+            page,
+            pagesize,
+            credentials:'include'
+        };
+        getList(pms).then(r=>{
+            if(r && r.result.status === 200) {
+                console.log('r is:', r.result);
+                this.setState({
+                    listData:r.result,
+                    isLoading:false
+                })
+            }
+        });
+    };
   submitData = (b)=>{
     console.log('call back data is:', b)
   };
@@ -304,13 +330,12 @@ class Dashboard extends Component {
         });
     };
   render() {
-    const {openModalData,openModal} = this.state;
-    console.log('openModalData data is:',openModalData);
+    const {openModalData,openModal,listData} = this.state;
     return (
       <div className="account-container">
         <CommonSearchHeader formData={formData} submitData={this.submitData}/>
         <Button className="add" type="primary" onClick={()=>{this.openModal({},'add')}}><Icon type="add" />新增</Button>
-        <CommonSearchTable tableColumns ={this.tableColumns} tableData={tableData}/>
+        <CommonSearchTable tableColumns ={this.tableColumns} tableData={listData}/>
         <CommonModal openModalData={openModalData} openModal={openModal} operateModal={this.operateModal} modalData={this.modalData}/>
       </div>
     );

@@ -3,7 +3,7 @@ import moment from 'moment';
 import { Table, Button, Icon, Modal, Form, Row, Col,Input,Pagination, message, Spin } from 'antd';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {getList, addList, editeList, deleteList} from 'services/password-manage'
+import {getList, addList, editeList, deleteList} from 'services/list_service'
 import {TIME_FOMATE} from 'constants/constant';
 import './style.scss';
 const formItemLayout = {

@@ -2,25 +2,37 @@ import React, {Component, Fragment} from 'react';
 import moment from 'moment';
 import _ from 'lodash';
 import { Table, Button, Icon, Modal, Form, Row, Col,Input,Pagination, message, Spin  } from 'antd';
-import {getList, addList, editeList, deleteList} from 'services/password-manage'
+// import {getList, addList, editeList, deleteList} from 'services/password-manage'
 import './style.scss';
 class CommonSearchTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      listData:[],
+        tableData:[],
       isLoading:true,
       page:1,
       pagesize:10,
+      total:0
     };
   }
 
 
   componentDidMount() {
+
   }
+
+  componentWillReceiveProps(nexeProps){
+    if(this.props.tableData !== nexeProps.tableData){
+      this.setState({
+        tableData:nexeProps.tableData.data,
+          total:nexeProps.tableData.total
+      })
+    }
+  }
+
   render() {
-    const {page, total, isLoading} = this.state;
-    const { tableColumns, tableData } = this.props;
+    const {page, total, isLoading,tableData} = this.state;
+    const { tableColumns, } = this.props;
     return (
       <div className="common-search-table">
         <Spin spinning={false}>
