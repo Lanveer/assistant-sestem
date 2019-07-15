@@ -40,6 +40,7 @@ class CommonModal extends Component {
   render() {
       const {isLoading} = this.state;
       const {form: { getFieldDecorator }, openModal,modalData, openModalData:{record,flag}} = this.props;
+   console.log('record is:',record);
     return (
         <Fragment>
           <Modal
@@ -58,7 +59,8 @@ class CommonModal extends Component {
                           <Col span={18} key={item.dataIndex}>
                             <Form.Item label={item.title} {...formItemLayout}>
                               {getFieldDecorator(`${item.dataIndex}`, {
-                                initialValue:`${ item.data[parseInt(record && record.category -1)] && item.data[parseInt(record && record.category -1)].category_name || ''}`,
+                                initialValue:`${record && record.category|| ''}`,
+                                // initialValue:`${item.data[parseInt(record && record.category -1)] && item.data[parseInt(record && record.category -1)].category_name || ''}`,
                                 rules: [{ required: `${item.required}`, message: `${item.errMsg}` }]
                               })(
                                 <Select showSearch={false}>
@@ -79,7 +81,8 @@ class CommonModal extends Component {
                           <Col span={18} key={item.dataIndex}>
                             <Form.Item label={item.title} {...formItemLayout}>
                               {getFieldDecorator(`${item.dataIndex}`, {
-                                initialValue:`${item.data[parseInt(record && record.payMethods -1)] && item.data[parseInt(record && record.payMethods -1)].payMethods_name || ''}`,
+                                initialValue:`${record && record.payMethods|| ''}`,
+                                // initialValue:`${item.data[parseInt(record && record.payMethods -1)] && item.data[parseInt(record && record.payMethods -1)].payMethods_name || ''}`,
                                 rules: [{ required: `${item.required}`, message: `${item.errMsg}` }]
                               })(
                                 <Select showSearch={false}>
@@ -97,28 +100,36 @@ class CommonModal extends Component {
                         )
                       }
                     }else if(item.type=== 'date'){
+                      console.log('dddddddd:',record && record[item.dataIndex]);
                       return (
                         <Col span={18} key={item.dataIndex}>
-                          {
-                            record && record[item.dataIndex] ?
-                              <Form.Item label={item.title} {...formItemLayout}>
-                                {getFieldDecorator(`${item.dataIndex}`, {// initialValue:`${moment(record && record[item.dataIndex]).format('YYYY-MM-DD HH:mm:ss') || ''}`,
-                                  rules: [{ required: `${item.required}`, message: `${item.errMsg}` }]
-                                })(
-                                  <DatePicker defaultValue={moment(record && record[item.dataIndex], 'YYYY-MM-DD')}/>
-                                )}
-                              </Form.Item>
-                              :
-                              <Form.Item label={item.title} {...formItemLayout}>
-                                {getFieldDecorator(`${item.dataIndex}`, {
-                                  initialValue:`${record && record[item.dataIndex] || ''}`,
-                                  rules: [{ required: `${item.required}`, message: `${item.errMsg}` }]
-                                })(
-                                  <DatePicker defaultValue={moment(new Date(), 'YYYY-MM-DD')}/>
-                                )}
-                              </Form.Item>
-                          }
-
+                          {/*{*/}
+                            {/*record && record[item.dataIndex] ?*/}
+                              {/*<Form.Item label={item.title} {...formItemLayout}>*/}
+                                {/*{getFieldDecorator(`${item.dataIndex}`, {// initialValue:`${moment(record && record[item.dataIndex]).format('YYYY-MM-DD HH:mm:ss') || ''}`,*/}
+                                  {/*rules: [{ required: `${item.required}`, message: `${item.errMsg}` }]*/}
+                                {/*})(*/}
+                                  {/*<DatePicker defaultValue={moment(record && record[item.dataIndex], 'YYYY-MM-DD')}/>*/}
+                                {/*)}*/}
+                              {/*</Form.Item>*/}
+                              {/*:*/}
+                              {/*<Form.Item label={item.title} {...formItemLayout}>*/}
+                                {/*{getFieldDecorator(`${item.dataIndex}`, {*/}
+                                  {/*initialValue:`${record && record[item.dataIndex] || ''}`,*/}
+                                  {/*rules: [{ required: `${item.required}`, message: `${item.errMsg}` }]*/}
+                                {/*})(*/}
+                                  {/*<DatePicker defaultValue={moment(new Date(), 'YYYY-MM-DD')}/>*/}
+                                {/*)}*/}
+                              {/*</Form.Item>*/}
+                          {/*}*/}
+                          <Form.Item label={item.title} {...formItemLayout}>
+                            {getFieldDecorator(`${item.dataIndex}`, {
+                              initialValue:`${record && record[item.dataIndex] || ''}`,
+                              rules: [{ required: `${item.required}`, message: `${item.errMsg}` }]
+                            })(
+                              <DatePicker defaultValue={moment(record && record[item.dataIndex], 'YYYY-MM-DD')}/>
+                            )}
+                          </Form.Item>
                         </Col>
                       )
                     }else{

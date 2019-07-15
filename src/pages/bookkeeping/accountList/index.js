@@ -307,7 +307,6 @@ class Dashboard extends Component {
         };
         getList(pms).then(r=>{
             if(r && r.result.status === 200) {
-                console.log('r is:', r.result);
                 this.setState({
                     listData:r.result,
                     isLoading:false
@@ -331,7 +330,6 @@ class Dashboard extends Component {
 
       }else if(flag==='add'){
         addList(params).then(r=>{
-           console.log('add res data is:', r);
           if(r && r.result.status === 200) {
             message.success('添加成功');
             this.getListData()
@@ -343,13 +341,11 @@ class Dashboard extends Component {
         this.setState({
             openModal:false
         });
-    // console.log('operateModal back data is:', b)
   };
 
 
     // open modal
     openModal=(obj, flag)=>{
-      console.log('obj is:', obj);
       let modalParams={};
       modalParams.record= obj,
       modalParams.flag= flag;

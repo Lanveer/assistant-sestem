@@ -10,7 +10,7 @@ class CommonSearchHeader extends Component {
     };
   }
   componentDidMount() {
-    console.log('this,props data is:', this.props);
+    // console.log('this,props data is:', this.props);
   }
 
   handleResetForm = () => {
