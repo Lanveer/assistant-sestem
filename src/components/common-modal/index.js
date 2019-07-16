@@ -41,7 +41,6 @@ class CommonModal extends Component {
   render() {
       const {isLoading} = this.state;
       const {form: { getFieldDecorator }, openModal,modalData, openModalData:{record,flag}} = this.props;
-   console.log('record data is:', record);
     return (
         <Fragment>
           <Modal

@@ -319,14 +319,21 @@ class Dashboard extends Component {
   };
     // modal 点击事件
     operateModal = (data, flag)=>{
-        console.log('data is:', data);
         let consumptionDate = moment(data.consumptionDate).format('YYYY-MM-DD HH:mm:ss');
         let createTime = moment(data.createTime).format('YYYY-MM-DD HH:mm:ss');
         let params = {...data, consumptionDate, createTime};
       if(flag=== 'edit'){
+        let id = this.state.openModalData.record.id;
+        editeList(params, id).then(r=>{
+          if(r && r.result.status === 200) {
+            message.success('编辑成功');
+            this.getListData()
+          }else{
+            message.error('编辑失败')
+          }
+        })
 
       }else if(flag==='delete'){
-
 
       }else if(flag==='add'){
         addList(params).then(r=>{
@@ -377,7 +384,7 @@ class Dashboard extends Component {
         <Spin spinning={isLoading}>
           <CommonSearchTable tableColumns ={this.tableColumns} tableData={listData}/>
         </Spin>
-        <CommonModal openModalData={openModalData} openModal={openModal} operateModal={this.operateModal} modalData={modalData}/>
+        <CommonModal operateModal={this.operateModal} modalData={modalData} openModalData={openModalData} openModal={openModal} />
       </div>
     );
   }

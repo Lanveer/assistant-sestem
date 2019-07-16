@@ -15,8 +15,8 @@ function addList(pms) {
     }
   });
 }
-function editeList(id, pms) {
-  return put(`api/list?id=${id}`, {
+function editeList(pms,id) {
+  return put(`api/accountlist?id=${id}`, {
     body: {
       ...pms
     }
