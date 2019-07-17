@@ -25,7 +25,7 @@ function editeList(pms,id) {
 
 
 function deleteList(id) {
-  return deleteRequest(`api/list?id=${id}`, {
+  return deleteRequest(`api/accountlist?id=${id}`, {
   });
 }
 export { getList, addList, editeList, deleteList};

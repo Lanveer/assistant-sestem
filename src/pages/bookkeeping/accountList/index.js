@@ -363,9 +363,19 @@ class Dashboard extends Component {
     delete = (record)=>{
         let that = this;
         confirm({
+            okText:'确定',
+            cancelText:'取消',
             title: `确定要删除名称为${record.item}的数据`,
             content: '删除后可以在数据库备份中找回',
             onOk() {
+              deleteList(record.id).then(r=>{
+                if(r && r.result.status === 200) {
+                  message.success('删除成功');
+                  that.getListData()
+                }else{
+                  message.error('删除失败')
+                }
+              })
             },
             onCancel() {
                 console.log('Cancel');
