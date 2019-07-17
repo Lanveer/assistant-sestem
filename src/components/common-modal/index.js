@@ -19,10 +19,11 @@ class CommonModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        isLoading:false
+        isLoading:false,
+        flag:false,
+        record:{}
     };
   }
-
     // ok
     handleOk = (flag)=>{
         this.props.form.validateFields((err, values) => {
@@ -37,10 +38,24 @@ class CommonModal extends Component {
         this.props.operateModal({},'cancel')
     };
   componentDidMount() {
+    console.log('modal data is:', this.props);
+    this.setState({
+      flag:this.props.openModalData.flag,
+      record:this.props.openModalData.record,
+    })
   }
+
+
+  componentWillReceiveProps(){
+    console.log('modal data is:', this.props);
+
+  }
+
+
   render() {
-      const {isLoading} = this.state;
-      const {form: { getFieldDecorator }, openModal,modalData, openModalData:{record,flag}} = this.props;
+      const {isLoading, record, flag} = this.state;
+      const {form: { getFieldDecorator }, openModal,modalData,} = this.props;
+  console.log('record is:', record);
     return (
         <Fragment>
           <Modal
@@ -51,6 +66,7 @@ class CommonModal extends Component {
           >
             <Form>
               <Row gutter={8}>
+                <h1>{record && record.item}</h1>
                 {
                   modalData && modalData.map(item=>{
                     if(item.type=== 'select'){

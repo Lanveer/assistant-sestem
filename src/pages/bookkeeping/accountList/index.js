@@ -349,8 +349,6 @@ class Dashboard extends Component {
             openModal:false
         });
   };
-
-
     // open modal
     openModal=(obj, flag)=>{
       let modalParams={};
@@ -361,7 +359,6 @@ class Dashboard extends Component {
             openModal:true
         })
     };
-
     // delete
     delete = (record)=>{
         let that = this;
@@ -384,7 +381,14 @@ class Dashboard extends Component {
         <Spin spinning={isLoading}>
           <CommonSearchTable tableColumns ={this.tableColumns} tableData={listData}/>
         </Spin>
-        <CommonModal operateModal={this.operateModal} modalData={modalData} openModalData={openModalData} openModal={openModal} />
+        {
+          openModal ?
+
+            <CommonModal operateModal={this.operateModal} modalData={modalData} openModalData={openModalData} openModal={openModal} />
+
+            :
+            null
+        }
       </div>
     );
   }
