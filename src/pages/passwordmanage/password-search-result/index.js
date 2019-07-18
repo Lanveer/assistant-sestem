@@ -33,7 +33,7 @@ export default class OrderSearchResult extends Component {
     this.state = {
       listData:[],
       showEditModal:false,
-      isLoading:true,
+      isLoading:false,
       page:1,
       pagesize:10,
     }
@@ -58,7 +58,6 @@ export default class OrderSearchResult extends Component {
       credentials:'include'
     };
     getList(pms).then(r=>{
-      console.log('r data is:', r);
       if(r && r.result.status === 200) {
         this.setState({
           listData:r.result.data,
@@ -86,7 +85,6 @@ export default class OrderSearchResult extends Component {
   };
 
   add = (record, flag)=>{
-    console.log('flag is:', flag);
     this.setState({
       showEditModal:!this.state.showEditModal,
       flag
@@ -134,7 +132,6 @@ export default class OrderSearchResult extends Component {
     this.setState({
       showEditModal:!this.state.showEditModal
     });
-
 
   };
 
@@ -231,7 +228,6 @@ export default class OrderSearchResult extends Component {
     })
   };
 
-
   setDefaultValue = (value, type = 'text', record = {}) => {
     let renderStr = '-';
     if (!_.isNull(value) && !_.isUndefined(value)) {
@@ -246,12 +242,13 @@ export default class OrderSearchResult extends Component {
 
   render() {
     const {listData, showEditModal, flag, page, total, isLoading} = this.state;
-    const {form: { getFieldDecorator }} = this.props;
+    const {form: { getFieldDecorator },searchData} = this.props;
+
     return (
       <div>
         <div className="scl-logo-container">
-          <Button className="add" type="primary" onClick={()=>{this.add({},'add')}}><Icon type="add" />新增</Button>
-          <Spin spinning={false}>
+          {/*<Button className="add" type="primary" onClick={()=>{this.add({},'add')}}><Icon type="add" />新增</Button>*/}
+          <Spin spinning={isLoading}>
             <Table
               style={{clear:'both'}}
               className="dr-table"

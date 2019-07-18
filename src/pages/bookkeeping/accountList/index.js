@@ -8,6 +8,7 @@ import CommonModal from 'components/common-modal';
 import moment from 'moment/moment';
 import {TIME_FOMATE} from 'constants/constant';
 import {getList, addList, editeList, deleteList} from 'services/account_service'
+import {search} from 'services/search'
 const confirm = Modal.confirm;
 
 
@@ -15,7 +16,7 @@ const confirm = Modal.confirm;
 const modalData=[
   {
     title: '条目',
-    dataIndex: 'item',
+    dataIndex: 'name',
     required:true,
     errMsg:'请输入条目',
     type:'input'
@@ -29,7 +30,7 @@ const modalData=[
     data:[
       {
         category_id:1,
-        category_name:'吃饭',
+        category_name:'吃',
         category_code:'eating',
       },
       {
@@ -41,6 +42,26 @@ const modalData=[
         category_id:3,
         category_name:'交通',
         category_code:'transport',
+      },
+      {
+        category_id:4,
+        category_name:'住',
+        category_code:'live',
+      },
+      {
+        category_id:5,
+        category_name:'书籍',
+        category_code:'book',
+      },
+      {
+        category_id:6,
+        category_name:'电子产品',
+        category_code:'electronic',
+      },
+      {
+        category_id:7,
+        category_name:'日常用品',
+        category_code:'daily',
       }
     ]
   },
@@ -72,6 +93,11 @@ const modalData=[
         payMethods_id:3,
         payMethods_name:'现金',
         payMethods_code:'cash',
+      },
+      {
+        payMethods_id:3,
+        payMethods_name:'其他',
+        payMethods_code:'other',
       }
     ]
   },
@@ -160,14 +186,11 @@ function categoryTransfer(val, flag) {
 // search-header data
 const formData = [
   {
-    name:'name',
+    name:'名称',
+    code:'name',
     value:true,
-    errMsg:'must have!'
-  },
-  {
-    name:'pwd',
-    value:true,
-    errMsg:'must have!'
+    required:true,
+    errMsg:'请输入需要查询的名称'
   }
 ];
 class Dashboard extends Component {
@@ -196,7 +219,7 @@ class Dashboard extends Component {
     },
     {
         title: '条目',
-        dataIndex: 'item',
+        dataIndex: 'name',
         render:(text)=>{
             return(
                 setDefaultValue(text)
@@ -288,9 +311,6 @@ class Dashboard extends Component {
         }
     },
 ];
-
-
-
   componentDidMount() {
       const {page, pagesize} = this.state;
       this.getListData(page, pagesize);
@@ -307,6 +327,7 @@ class Dashboard extends Component {
         };
         getList(pms).then(r=>{
             if(r && r.result.status === 200) {
+              console.log('list data is:', r);
                 this.setState({
                     listData:r.result,
                     isLoading:false
@@ -315,7 +336,17 @@ class Dashboard extends Component {
         });
     };
   submitData = (b)=>{
-    console.log('call back data is:', b)
+    this.setState({
+      isLoading:true
+    });
+    search(b, 'account_list').then(r=>{
+      if(r && r.result.status === 200) {
+        this.setState({
+          listData:r.result,
+          isLoading:false
+        })
+      }
+    })
   };
     // modal 点击事件
     operateModal = (data, flag)=>{

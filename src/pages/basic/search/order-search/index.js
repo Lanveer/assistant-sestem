@@ -12,7 +12,8 @@ export default class OrderSearch extends Component {
     this.state = {
     };
   }
-  handleSubmitSearch(conditions) {
+  handleSubmitSearch(key) {
+    console.log('eweeeeeeeeeeeeeeeee:', key)
   }
 
 
@@ -26,7 +27,6 @@ export default class OrderSearch extends Component {
           handleSubmitSearch={this.handleSubmitSearch}
         />
         <OrderSearchResult
-          handleSubmitSearch={this.handleSubmitSearch}
         />
       </div>
     );

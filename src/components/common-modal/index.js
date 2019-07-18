@@ -50,9 +50,9 @@ class CommonModal extends Component {
     console.log('modal data is:', this.props);
 
   }
-  disabledDate = (current) => {
-    return current && current.valueOf() < moment().startOf('day');
-  }
+  // disabledDate = (current) => {
+  //   return current && current.valueOf() < moment().startOf('day');
+  // };
 
 
   render() {
@@ -129,7 +129,7 @@ class CommonModal extends Component {
                                 })(
                                   <DatePicker
                                     format={'YYYY-MM-DD HH:mm:ss'}
-                                    disabledDate={this.disabledDate}
+                                    // disabledDate={this.disabledDate}
                                   />
                                 )}
                               </Form.Item>
@@ -142,7 +142,7 @@ class CommonModal extends Component {
                                 })(
                                   <DatePicker
                                     format={'YYYY-MM-DD HH:mm:ss'}
-                                    disabledDate={this.disabledDate}
+                                    // disabledDate={this.disabledDate}
                                   />
                                 )}
                               </Form.Item>
@@ -172,5 +172,4 @@ class CommonModal extends Component {
     );
   }
 }
-
 export default CommonModal;

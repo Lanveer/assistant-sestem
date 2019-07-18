@@ -5,6 +5,7 @@ import {
   Icon,
 } from 'antd';
 import PublicButton from 'components/public-button';
+import {search} from 'services/search'
 import {
   DATE_FOMATE,
   FILTER_DATE_FOMATE,
@@ -12,6 +13,7 @@ import {
 } from 'constants/constant';
 import PropTypes from 'prop-types';
 import './style.scss';
+import {message} from 'antd/lib/index';
 @Form.create()
 export default class OrderSearchHeader extends Component {
   static propTypes = {
@@ -39,10 +41,13 @@ export default class OrderSearchHeader extends Component {
 
   handleSubmitForm = () => {
     let formCondition = this.getFormFilterParams();
-    console.log('form data is:', formCondition);
+    search(formCondition, 'list').then(r=>{
+      if(r && r.result.status === 200) {
+        let searchData = r.result.data;
+        this.props.handleSubmitSearch(searchData)
+      }
+    })
     };
-
-
   handleResetForm = () => {
     const { form } = this.props;
     form.resetFields();
@@ -71,7 +76,7 @@ export default class OrderSearchHeader extends Component {
           <div className="form-item-wrapper">
             <Form.Item label={'名称'} {...formItemLayout}>
               {getFieldDecorator('name')(
-                <Input placeholder="请输入" style={{ width: '100%' }} />
+                <Input placeholder="请输入需要查询的名字" style={{ width: '100%' }} />
               )}
             </Form.Item>
           </div>
