@@ -50,6 +50,9 @@ class CommonModal extends Component {
     console.log('modal data is:', this.props);
 
   }
+  disabledDate = (current) => {
+    return current && current.valueOf() < moment().startOf('day');
+  }
 
 
   render() {
@@ -66,7 +69,6 @@ class CommonModal extends Component {
           >
             <Form>
               <Row gutter={8}>
-                <h1>{record && record.item}</h1>
                 {
                   modalData && modalData.map(item=>{
                     if(item.type=== 'select'){
@@ -114,28 +116,37 @@ class CommonModal extends Component {
                         )
                       }
                     }else if(item.type=== 'date'){
+                      console.log('fuck data:',record && record[item.dataIndex]);
                       return (
                         <Col span={18} key={item.dataIndex}>
-                          {/*{*/}
-                            {/*record && record[item.dataIndex] ?*/}
-                              {/*<Form.Item label={item.title} {...formItemLayout}>*/}
-                                {/*{getFieldDecorator(`${item.dataIndex}`,*/}
-                                  {/*{// initialValue:`${moment(record && record[item.dataIndex]).format('YYYY-MM-DD HH:mm:ss') || ''}`,*/}
-                                  {/*rules: [{ required: `${item.required}`, message: `${item.errMsg}` }]*/}
-                                {/*})(*/}
-                                  {/*<DatePicker defaultValue={moment(' 2019-07-15 17:36:50', 'YYYY-MM-DD')}/>*/}
-                                {/*)}*/}
-                              {/*</Form.Item>*/}
-                              {/*:*/}
-                              {/*<Form.Item label={item.title} {...formItemLayout}>*/}
-                                {/*{getFieldDecorator(`${item.dataIndex}`, {*/}
-                                  {/*// initialValue:`${record && record[item.dataIndex] || ''}`,*/}
-                                  {/*rules: [{ required: `${item.required}`, message: `${item.errMsg}` }]*/}
-                                {/*})(*/}
-                                  {/*<DatePicker defaultValue={moment('2019-07-15 17:36:50', 'YYYY-MM-DD')}/>*/}
-                                {/*)}*/}
-                              {/*</Form.Item>*/}
-                          {/*}*/}
+                          {
+                            record && record[item.dataIndex] ?
+                              <Form.Item label={item.title} {...formItemLayout}>
+                                {getFieldDecorator(`${item.dataIndex}`,
+                                  {
+                                  rules: [{ required: `${item.required}`, message: `${item.errMsg}` }],
+                                  initialValue: moment(record && record[item.dataIndex])
+                                })(
+                                  <DatePicker
+                                    format={'YYYY-MM-DD HH:mm:ss'}
+                                    disabledDate={this.disabledDate}
+                                  />
+                                )}
+                              </Form.Item>
+                              :
+                              <Form.Item label={item.title} {...formItemLayout}>
+                                {getFieldDecorator(`${item.dataIndex}`, {
+                                  rules: [{ required: `${item.required}`, message: `${item.errMsg}` }],
+                                  initialValue: moment(new Date())
+
+                                })(
+                                  <DatePicker
+                                    format={'YYYY-MM-DD HH:mm:ss'}
+                                    disabledDate={this.disabledDate}
+                                  />
+                                )}
+                              </Form.Item>
+                          }
                         </Col>
                       )
                     }else{
