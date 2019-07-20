@@ -210,7 +210,7 @@ class Dashboard extends Component {
   tableColumns=[
     {
         title: '序号',
-        dataIndex: 'id',
+        dataIndex: 'idx',
         render:(text)=>{
             return(
                 setDefaultValue(text)
@@ -348,6 +348,9 @@ class Dashboard extends Component {
       }
     })
   };
+  resetForm=()=>{
+    this.getListData()
+  };
     // modal 点击事件
     operateModal = (data, flag)=>{
         let consumptionDate = moment(data.consumptionDate).format('YYYY-MM-DD HH:mm:ss');
@@ -417,7 +420,7 @@ class Dashboard extends Component {
     const {openModalData,openModal,listData, isLoading} = this.state;
     return (
       <div className="account-container">
-        <CommonSearchHeader formData={formData} submitData={this.submitData}/>
+        <CommonSearchHeader formData={formData} submitData={this.submitData} resetForm={this.resetForm}/>
         <Button className="add" type="primary" onClick={()=>{this.openModal({},'add')}}><Icon type="add" />新增</Button>
         <Spin spinning={isLoading}>
           <CommonSearchTable tableColumns ={this.tableColumns} tableData={listData}/>

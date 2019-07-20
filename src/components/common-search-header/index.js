@@ -16,6 +16,7 @@ class CommonSearchHeader extends Component {
   handleResetForm = () => {
     const { form } = this.props;
     form.resetFields();
+    this.props.resetForm()
   };
 
   handleSubmitForm = () => {

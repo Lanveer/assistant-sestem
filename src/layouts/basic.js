@@ -22,7 +22,7 @@ const userMenu = [
   },
   {
     "code": "bookKeeping",
-    "name": "记账功能",
+    "name": "记账功能123",
     "order": 0,
     "parentId": null,
     "id": null,
@@ -46,7 +46,7 @@ const userMenu = [
   },
   {
     "code": "credit_supply_chain",
-    "name": "密码管理3",
+    "name": "密码管理3wqwq",
     "order": 0,
     "parentId": null,
     "id": null,
