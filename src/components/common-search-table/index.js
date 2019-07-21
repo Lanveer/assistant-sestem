@@ -32,7 +32,7 @@ class CommonSearchTable extends Component {
 
   render() {
     const {page, total, isLoading,tableData} = this.state;
-    const { tableColumns, } = this.props;
+    const { tableColumns, x} = this.props;
     return (
       <div className="common-search-table">
         <Spin spinning={false}>
@@ -45,6 +45,7 @@ class CommonSearchTable extends Component {
             pagination={false}
             bordered={true}
             rowKey={(record, idx) => idx}
+            scroll={{x:x}}
           />
           <Pagination
             style={{float:'right', marginTop:20}}

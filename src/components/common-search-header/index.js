@@ -54,12 +54,12 @@ class CommonSearchHeader extends Component {
                   formData.map(item=>{
                     return(
                       <li key={item.name}>
-                        <Form.Item label={item.name} {...formItemLayout}>
+                        <Form.Item label={item.name} {...formItemLayout} style={{width:'100%'}}>
                           {getFieldDecorator(`${item.code}`,{
                             initialValue:"",
                             rules: [{ required: `${item.required}`, message: `${item.errMsg}` }]
                           })(
-                            <Input placeholder="请输入" style={{ width: '100%' }} />
+                            <Input placeholder={item.placeholder || '请输入'} style={{ width: '100%' }} />
                           )}
                         </Form.Item>
                       </li>

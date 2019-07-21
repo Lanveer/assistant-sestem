@@ -18,6 +18,13 @@ export default app => [
         )
       },
       {
+        path: 'bookManage',
+        exact: true,
+        component: dynamicWrapper(app, [], () =>
+          import('pages/book-manage')
+        )
+      },
+      {
         name: '账目列表',
         path: '/bookKeeping/accountList',
         exact: true,
@@ -63,14 +70,6 @@ export default app => [
         exact: true,
         component: dynamicWrapper(app, [], () =>
           import('pages/basic/new-approvel-center/credit-inquiry')
-        )
-      },
-      {
-        name: '熱風而非',
-        path: '/approvelCenter',
-        exact: true,
-        component: dynamicWrapper(app, [], () =>
-          import('pages/basic/approvel-center')
         )
       },
       {

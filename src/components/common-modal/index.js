@@ -2,7 +2,8 @@ import React, {Component, Fragment} from 'react';
 import moment from 'moment';
 import './style.scss';
 import _ from 'lodash';
-import { Table, Button, Icon, Modal, Form, Row, Col,Input,Pagination, message, Spin, Select,DatePicker   } from 'antd';
+// import {upload} from 'services/upload_service';
+import { Table, Button, Icon, Modal, Form, Row, Col,Input,Upload, message, Spin, Select,DatePicker   } from 'antd';
 const Option = Select.Option;
 const formItemLayout = {
     labelCol: {
@@ -55,9 +56,23 @@ class CommonModal extends Component {
   // };
 
 
+  upload =(file)=>{
+    console.log('file is:', file);
+  };
+
+
+
   render() {
       const {isLoading, record, flag} = this.state;
       const {form: { getFieldDecorator }, openModal,modalData,} = this.props;
+
+      const uploadProps = {
+        action: `api/upload?flag='book_list'&id=1`,
+        listType: 'picture',
+        defaultFileList: [],
+        className: 'upload-list-inline',
+      };
+
   console.log('record is:', record);
     return (
         <Fragment>
@@ -129,7 +144,6 @@ class CommonModal extends Component {
                                 })(
                                   <DatePicker
                                     format={'YYYY-MM-DD HH:mm:ss'}
-                                    // disabledDate={this.disabledDate}
                                   />
                                 )}
                               </Form.Item>
@@ -142,14 +156,27 @@ class CommonModal extends Component {
                                 })(
                                   <DatePicker
                                     format={'YYYY-MM-DD HH:mm:ss'}
-                                    // disabledDate={this.disabledDate}
                                   />
                                 )}
                               </Form.Item>
                           }
                         </Col>
                       )
-                    }else{
+                    }
+                    else if(item.type === 'file'){
+                      return(
+                        <Col span={18} key={item.dataIndex}>
+                          <Form.Item label={item.title} {...formItemLayout}>
+                            <Upload { ...uploadProps}>
+                              <Button>
+                                <Icon type="upload" /> 上传封面
+                              </Button>
+                            </Upload>
+                          </Form.Item>
+                        </Col>
+                      )
+                    }
+                    else{
                       return(
                         <Col span={18} key={item.dataIndex}>
                           <Form.Item label={item.title} {...formItemLayout}>

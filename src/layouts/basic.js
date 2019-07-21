@@ -45,8 +45,8 @@ const userMenu = [
     ]
   },
   {
-    "code": "credit_supply_chain",
-    "name": "密码管理3wqwq",
+    "code": "bookManage",
+    "name": "图书管理",
     "order": 0,
     "parentId": null,
     "id": null,

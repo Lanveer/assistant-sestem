@@ -41,7 +41,7 @@ const initRouteConfig = [
   'user',
   'passwordManage',
   'bookKeeping',
-  'approvelCenter',
+  'bookManage',
   'fileManage',
   'newApprovelCenter',
   'postLoan',

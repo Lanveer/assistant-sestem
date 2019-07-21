@@ -35,7 +35,7 @@ const PageHeader = props => {
             if (ROUTE_MENU_DIC[item.code] === 'newApprovelCenter') {
               return (
                 <SubMenu
-                  title="qitafongxi"
+                  title="测试"
                   style={commonBottom}
                   key={`${ROUTE_MENU_DIC[item.code]}`}
                 >
